@@ -1,0 +1,122 @@
+[
+  {
+    "name": "Teentaal",
+    "aliases": ["Tritaal", "Teen Taal", "Trital"],
+    "beats": 16,
+    "vibhags": [4, 4, 4, 4],
+    "theka": ["Dha", "Dhin", "Dhin", "Dha", "Dha", "Dhin", "Dhin", "Dha", "~Dha", "~Tin", "~Tin", "~Ta", "Ta", "Dhin", "Dhin", "Dha"],
+    "feel": ["versatile", "stately"],
+    "tempo": ["vilambit", "madhya", "drut"],
+    "description": "The most common tala in Hindustani music, used across genres from khyal to instrumental. Its four equal vibhags of four beats each make it symmetrical and approachable. The khali section falls in the third vibhag."
+  },
+  {
+    "name": "Jhaptaal",
+    "aliases": ["Jhap Taal", "Japtal"],
+    "beats": 10,
+    "vibhags": [2, 3, 2, 3],
+    "theka": ["Dhi", "Na", "Dhi", "Dhi", "Na", "~Ti", "~Na", "Dhi", "Dhi", "Na"],
+    "feel": ["energetic", "lively"],
+    "tempo": ["madhya", "drut"],
+    "description": "A lively tala with an asymmetric 2+3+2+3 structure. Widely used in khyal and instrumental music. Its irregular grouping creates a sense of forward momentum distinct from the symmetry of Teentaal."
+  },
+  {
+    "name": "Ektaal",
+    "aliases": ["Ek Taal", "Ektal"],
+    "beats": 12,
+    "vibhags": [2, 2, 2, 2, 2, 2],
+    "theka": ["Dhin", "Dhin", "Dhage", "Tirakita", "~Tu", "~Na", "~Kita", "~Dhage", "Tirakita", "Dhi", "Na", "Dhin"],
+    "feel": ["stately", "spacious"],
+    "tempo": ["vilambit", "madhya"],
+    "description": "A twelve-beat tala divided into six pairs, distinguished by compound bols (Dhage, Tirakita). Used extensively in vilambit khyal for its expansive, open quality. Despite sharing the beat count with Chautaal, its theka gives it an entirely different character."
+  },
+  {
+    "name": "Rupak",
+    "aliases": ["Rupakra", "Roopak"],
+    "beats": 7,
+    "vibhags": [3, 2, 2],
+    "theka": ["~Tin", "~Tin", "~Na", "Dhi", "Na", "Dhi", "Na"],
+    "feel": ["lyrical", "introspective"],
+    "tempo": ["madhya", "drut"],
+    "description": "Unique among Hindustani talas — the sam (first beat) falls on the khali, creating a distinctive lilting quality. Widely used in khyal and semi-classical genres. Its seven-beat cycle is the most common odd-beat tala."
+  },
+  {
+    "name": "Dadra",
+    "aliases": [],
+    "beats": 6,
+    "vibhags": [3, 3],
+    "theka": ["Dha", "Dhin", "Na", "~Dha", "~Tin", "~Na"],
+    "feel": ["light", "playful", "folk"],
+    "tempo": ["madhya", "drut"],
+    "description": "The foundational tala of the dadra genre of semi-classical music, also common in thumri and folk. Its simple two-vibhag structure gives it a lilting, dance-like quality."
+  },
+  {
+    "name": "Keherwa",
+    "aliases": ["Kaharwa", "Kaherwa"],
+    "beats": 8,
+    "vibhags": [4, 4],
+    "theka": ["Dha", "Ge", "Na", "Ti", "~Na", "~Ke", "Dhin", "Na"],
+    "feel": ["light", "festive", "folk"],
+    "tempo": ["madhya", "drut"],
+    "description": "The most widely used tala outside the classical tradition, found in bhajan, folk, and film music. Its simple structure and energetic feel make it ubiquitous. Often played at faster tempos."
+  },
+  {
+    "name": "Tilwada",
+    "aliases": ["Tilwara"],
+    "beats": 16,
+    "vibhags": [4, 4, 4, 4],
+    "theka": ["Dha", "Tirakita", "Dhin", "Dhin", "~Dha", "~Dha", "~Tin", "~Tin", "Dha", "Tirakita", "Dhin", "Dhin", "Dha", "Dha", "Dhin", "Dhin"],
+    "feel": ["stately", "contemplative"],
+    "tempo": ["vilambit"],
+    "description": "A sixteen-beat tala used primarily in vilambit khyal. Shares the same beat count as Teentaal but has a very different character due to the Tirakita compound bol. The second vibhag (with Tin) marks the khali."
+  },
+  {
+    "name": "Jhoomra",
+    "aliases": ["Jhumra", "Jhumra Taal"],
+    "beats": 14,
+    "vibhags": [3, 4, 3, 4],
+    "theka": ["Dhin", "Dha", "Dha", "Dhin", "Dhin", "Dhage", "Tirakita", "~Tin", "~Ta", "~Ta", "Dhin", "Dhin", "Dhage", "Tirakita"],
+    "feel": ["grave", "expansive", "majestic"],
+    "tempo": ["vilambit"],
+    "description": "One of the most dignified and expansive talas, used exclusively in vilambit khyal. Its fourteen-beat cycle creates large, open spans that invite elaborate melodic development. Closely associated with the most serious classical performances."
+  },
+  {
+    "name": "Dhamar",
+    "aliases": [],
+    "beats": 14,
+    "vibhags": [5, 2, 3, 4],
+    "theka": ["Ka", "Dhi", "Ta", "Dhi", "Ta", "Dhi", "Ta", "~Ti", "~Ta", "~Ka", "Ga", "Di", "Ge", "Na"],
+    "feel": ["devotional", "festive"],
+    "tempo": ["madhya"],
+    "description": "Associated with the Holi festival and the dhrupad tradition. Its 5+2+3+4 structure is one of the most asymmetric in Hindustani music. Used in the dhamar style of dhrupad, often with themes of Krishna and spring."
+  },
+  {
+    "name": "Chautaal",
+    "aliases": ["Char Taal", "Chautala"],
+    "beats": 12,
+    "vibhags": [2, 2, 2, 2, 2, 2],
+    "theka": ["Dha", "Dha", "~Dhin", "~Ta", "Kita", "Dha", "~Dhin", "~Ta", "Tira", "Kita", "Tu", "Na"],
+    "feel": ["classical", "stately"],
+    "tempo": ["madhya", "drut"],
+    "description": "The principal tala of dhrupad, one of the oldest Hindustani vocal forms. Its twelve beats in six pairs create a dignified, ceremonial feel. The distribution of tali and khali across six vibhags gives it a weighty, complex character."
+  },
+  {
+    "name": "Deepchandi",
+    "aliases": ["Dip Chandi", "Dipchandi"],
+    "beats": 14,
+    "vibhags": [3, 4, 3, 4],
+    "theka": ["Dha", "—", "Dhin", "Dha", "Dha", "—", "Dhin", "~Na", "~—", "~Tin", "Na", "Na", "—", "Tin"],
+    "feel": ["lyrical", "romantic", "languid"],
+    "tempo": ["madhya"],
+    "description": "The defining tala of thumri. Its rests within vibhags give it a languid, swaying quality that suits thumri's romantic themes. The subtle internal spacing distinguishes it from Jhoomra, which shares the same beat and vibhag structure."
+  },
+  {
+    "name": "Sooltaal",
+    "aliases": ["Sultaal", "Sul Taal"],
+    "beats": 10,
+    "vibhags": [2, 2, 3, 3],
+    "theka": ["Dha", "Dha", "~Dhin", "~Ta", "Tirakita", "Dhin", "Na", "Kita", "Dha", "Ti"],
+    "feel": ["brisk", "energetic"],
+    "tempo": ["madhya", "drut"],
+    "description": "A ten-beat tala with an asymmetric 2+2+3+3 structure, used primarily in dhrupad and instrumental music. Its feel differs notably from Jhaptaal despite sharing the same beat count, owing to its distinct bol patterns and groupings."
+  }
+]

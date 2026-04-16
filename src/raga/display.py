@@ -53,6 +53,30 @@ TIME_COLORS = {
 }
 
 
+def format_theka(theka: list[str], vibhags: list[int]) -> Text:
+    result = Text()
+    bol_idx = 0
+    beat = 1
+    for v_size in vibhags:
+        result.append(f"  {beat:>2}  ", style="dim")
+        for i in range(v_size):
+            if i > 0:
+                result.append("  ")
+            bol = theka[bol_idx]
+            if bol.startswith("~"):
+                result.append(bol[1:], style="dim italic")
+            elif bol == "—":
+                result.append("—", style="dim")
+            elif bol_idx == 0:
+                result.append(bol, style="bold cyan")
+            else:
+                result.append(bol)
+            bol_idx += 1
+        result.append("\n")
+        beat += v_size
+    return result
+
+
 def time_label(time: str) -> Text:
     label = TIME_LABELS.get(time, time.title())
     color = TIME_COLORS.get(time, "white")

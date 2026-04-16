@@ -29,3 +29,22 @@ def load_ragas() -> list[Raga]:
     with open(data_path) as f:
         data = json.load(f)
     return [Raga(**r) for r in data]
+
+
+class Tala(BaseModel):
+    name: str
+    aliases: list[str] = []
+    beats: int
+    vibhags: list[int]
+    theka: list[str]
+    feel: list[str] = []
+    tempo: list[str] = []
+    description: Optional[str] = None
+
+
+@lru_cache(maxsize=1)
+def load_talas() -> list[Tala]:
+    data_path = Path(__file__).parent / "data" / "talas.json"
+    with open(data_path) as f:
+        data = json.load(f)
+    return [Tala(**t) for t in data]

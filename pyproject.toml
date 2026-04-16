@@ -16,6 +16,7 @@ dependencies = [
 
 [project.scripts]
 raga = "raga.cli:app"
+tala = "raga.tala_cli:app"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/raga"]
