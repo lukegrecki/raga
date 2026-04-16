@@ -1,0 +1,21 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "raga"
+version = "0.1.0"
+description = "Hindustani raga reference tool"
+requires-python = ">=3.11"
+dependencies = [
+    "typer>=0.12",
+    "rich>=13",
+    "pydantic>=2",
+    "rapidfuzz>=3",
+]
+
+[project.scripts]
+raga = "raga.cli:app"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/raga"]
