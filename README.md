@@ -22,6 +22,8 @@ raga list --thaat Kalyan        # filter by thaat
 raga list --time evening        # filter by time of day
 raga list --mood devotional
 raga list --season spring
+raga list --plain               # plain text output (no color, pipe-friendly)
+raga list --output ragas.txt    # write plain text to a file
 
 raga suggest                    # suggest ragas for the current time of day
 raga suggest --time morning     # suggest for a specific time
@@ -37,12 +39,28 @@ tala list                       # list all talas
 tala list --beats 16            # filter by beat count
 tala list --feel stately        # filter by feel
 tala list --tempo vilambit      # filter by tempo
+tala list --plain               # plain text output (no color, pipe-friendly)
+tala list --output talas.txt    # write plain text to a file
 
 tala suggest                    # suggest talas from the full collection
 tala suggest --beats 16         # suggest talas with a specific beat count
 tala suggest --feel lively      # suggest by feel
 tala suggest --tempo drut --count 2
 ```
+
+### Shell completions
+
+Both `raga` and `tala` support tab completion for all options and their values (raga names, thaats, times, moods, seasons, feels, tempos, beat counts).
+
+```bash
+raga --install-completion       # install completion for your current shell
+tala --install-completion
+
+raga --show-completion          # print the completion script (for manual setup)
+tala --show-completion
+```
+
+Supported shells: bash, zsh, fish, PowerShell.
 
 ## Reference
 
