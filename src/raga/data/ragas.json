@@ -196,6 +196,20 @@
     "description": "A raga that uniquely combines shuddha Re and Ga with komal Dha and Ni, creating a bittersweet character. Closely related to the Carnatic raga of the same name. Popular in Hindustani vocal and instrumental music."
   },
   {
+    "name": "Shobhavari",
+    "aliases": ["Shobavari"],
+    "thaat": "Bhairav",
+    "arohana": ["Sa", "komal Re", "Ma", "Pa", "komal Dha", "SA"],
+    "avarohana": ["SA", "Ni", "komal Dha", "Pa", "Ma", "komal Re", "Sa"],
+    "vadi": "komal Re",
+    "samvadi": "komal Dha",
+    "time": "dawn",
+    "mood": ["devotional", "peaceful", "tender"],
+    "season": null,
+    "pakad": "r M P d S' / d P M r S",
+    "description": "A dawn raga from Bhairav thaat. Ga is entirely absent, giving it a sparse, open quality distinct from Bhairav itself. The pentatonic ascent (omitting Ga and Ni) and the prominent komal Re create a serene, devotional atmosphere well suited to early morning."
+  },
+  {
     "name": "Shree",
     "aliases": ["Shri"],
     "thaat": "Purvi",
