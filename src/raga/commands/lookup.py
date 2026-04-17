@@ -95,7 +95,10 @@ def lookup(
         return
 
     if suggestions:
-        rprint(f"[yellow]No exact match for[/yellow] [bold]{name!r}[/bold][yellow]. Did you mean:[/yellow]")
+        rprint(
+            f"[yellow]No exact match for[/yellow] [bold]{name!r}[/bold]"
+            "[yellow]. Did you mean:[/yellow]"
+        )
         for s in suggestions:
             rprint(f"  [cyan]•[/cyan] {s}")
     else:

@@ -5,16 +5,26 @@ import typer
 from rich import print as rprint
 from rich.console import Console
 from rich.table import Table
-from rich.text import Text
 
-from raga.completers import complete_moods, complete_seasons, complete_thaats, complete_times
-from raga.display import TIME_COLORS, format_swara, time_label
+from raga.completers import (
+    complete_moods,
+    complete_seasons,
+    complete_thaats,
+    complete_times,
+)
+from raga.display import format_swara, time_label
 from raga.models import Raga, load_ragas
 
 console = Console()
 
 
-def _matches(raga: Raga, thaat: Optional[str], time: Optional[str], mood: Optional[str], season: Optional[str]) -> bool:
+def _matches(
+    raga: Raga,
+    thaat: Optional[str],
+    time: Optional[str],
+    mood: Optional[str],
+    season: Optional[str],
+) -> bool:
     if thaat and raga.thaat.lower() != thaat.lower():
         return False
     if time and raga.time.lower() != time.lower():
@@ -27,7 +37,13 @@ def _matches(raga: Raga, thaat: Optional[str], time: Optional[str], mood: Option
     return True
 
 
-def _to_plain_text(ragas: list[Raga], thaat: Optional[str], time: Optional[str], mood: Optional[str], season: Optional[str]) -> str:
+def _to_plain_text(
+    ragas: list[Raga],
+    thaat: Optional[str],
+    time: Optional[str],
+    mood: Optional[str],
+    season: Optional[str],
+) -> str:
     headers = ["Raga", "Thaat", "Time", "Vadi", "Samvadi", "Mood"]
     rows = [
         [
@@ -40,10 +56,16 @@ def _to_plain_text(ragas: list[Raga], thaat: Optional[str], time: Optional[str],
         ]
         for r in ragas
     ]
-    widths = [max(len(h), max((len(row[i]) for row in rows), default=0)) for i, h in enumerate(headers)]
+    widths = [
+        max(len(h), max((len(row[i]) for row in rows), default=0))
+        for i, h in enumerate(headers)
+    ]
     header_line = "  ".join(h.ljust(widths[i]) for i, h in enumerate(headers)).rstrip()
     separator = "-" * (sum(widths) + 2 * (len(widths) - 1))
-    data_lines = ["  ".join(cell.ljust(widths[i]) for i, cell in enumerate(row)).rstrip() for row in rows]
+    data_lines = [
+        "  ".join(cell.ljust(widths[i]) for i, cell in enumerate(row)).rstrip()
+        for row in rows
+    ]
 
     parts = []
     if any([thaat, time, mood, season]):
@@ -64,12 +86,28 @@ def _to_plain_text(ragas: list[Raga], thaat: Optional[str], time: Optional[str],
 
 
 def list_ragas(
-    thaat: Optional[str] = typer.Option(None, "--thaat", "-t", help="Filter by thaat (e.g. Kalyan, Bhairav)", autocompletion=complete_thaats),
-    time: Optional[str] = typer.Option(None, "--time", help="Filter by time (e.g. morning, evening, night)", autocompletion=complete_times),
-    mood: Optional[str] = typer.Option(None, "--mood", "-m", help="Filter by mood (e.g. devotional, romantic)", autocompletion=complete_moods),
-    season: Optional[str] = typer.Option(None, "--season", "-s", help="Filter by season (e.g. spring, winter)", autocompletion=complete_seasons),
-    plain: bool = typer.Option(False, "--plain", help="Output plain text, suitable for piping or redirection"),
-    output: Optional[Path] = typer.Option(None, "--output", "-o", help="Write plain text output to a file"),
+    thaat: Optional[str] = typer.Option(
+        None, "--thaat", "-t", help="Filter by thaat (e.g. Kalyan, Bhairav)",
+        autocompletion=complete_thaats,
+    ),
+    time: Optional[str] = typer.Option(
+        None, "--time", help="Filter by time (e.g. morning, evening, night)",
+        autocompletion=complete_times,
+    ),
+    mood: Optional[str] = typer.Option(
+        None, "--mood", "-m", help="Filter by mood (e.g. devotional, romantic)",
+        autocompletion=complete_moods,
+    ),
+    season: Optional[str] = typer.Option(
+        None, "--season", "-s", help="Filter by season (e.g. spring, winter)",
+        autocompletion=complete_seasons,
+    ),
+    plain: bool = typer.Option(
+        False, "--plain", help="Output plain text, suitable for piping or redirection",
+    ),
+    output: Optional[Path] = typer.Option(
+        None, "--output", "-o", help="Write plain text output to a file",
+    ),
 ) -> None:
     """List all ragas, with optional filters."""
     ragas = load_ragas()
@@ -80,7 +118,9 @@ def list_ragas(
         return
 
     if plain or output:
-        text = _to_plain_text(sorted(filtered, key=lambda r: r.name), thaat, time, mood, season)
+        text = _to_plain_text(
+            sorted(filtered, key=lambda r: r.name), thaat, time, mood, season
+        )
         if output:
             output.write_text(text)
             typer.echo(f"Wrote {len(filtered)} raga(s) to {output}")

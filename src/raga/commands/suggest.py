@@ -5,13 +5,10 @@ from typing import Optional
 import typer
 from rich import print as rprint
 from rich.console import Console
-from rich.panel import Panel
-from rich.table import Table
-from rich.text import Text
 
 from raga.commands.lookup import _render_raga
 from raga.completers import complete_moods, complete_times
-from raga.display import TIME_COLORS, format_swara, time_label
+from raga.display import TIME_COLORS
 from raga.models import Raga, load_ragas
 
 console = Console()
@@ -38,10 +35,15 @@ def _current_time_of_day() -> str:
 
 def suggest(
     time: Optional[str] = typer.Option(
-        None, "--time", help="Time of day (e.g. morning, evening). Defaults to current time.",
+        None,
+        "--time",
+        help="Time of day (e.g. morning, evening). Defaults to current time.",
         autocompletion=complete_times,
     ),
-    mood: Optional[str] = typer.Option(None, "--mood", "-m", help="Mood (e.g. devotional, romantic)", autocompletion=complete_moods),
+    mood: Optional[str] = typer.Option(
+        None, "--mood", "-m", help="Mood (e.g. devotional, romantic)",
+        autocompletion=complete_moods,
+    ),
     count: int = typer.Option(3, "--count", "-n", help="Number of ragas to suggest"),
 ) -> None:
     """Suggest ragas suited to the current time or a given mood."""
@@ -52,7 +54,7 @@ def suggest(
         detected_time = _current_time_of_day()
 
     def matches(r: Raga) -> bool:
-        if detected_time and r.time.lower() != detected_time.lower() and r.time.lower() != "any":
+        if detected_time and r.time.lower() not in (detected_time.lower(), "any"):
             return False
         if mood and mood.lower() not in [m.lower() for m in r.mood]:
             return False

@@ -5,7 +5,6 @@ import typer
 from rich import print as rprint
 from rich.console import Console
 from rich.table import Table
-from rich.text import Text
 
 from raga.completers import complete_beats, complete_feels, complete_tempos
 from raga.models import Tala, load_talas
@@ -13,7 +12,9 @@ from raga.models import Tala, load_talas
 console = Console()
 
 
-def _matches(tala: Tala, beats: Optional[int], feel: Optional[str], tempo: Optional[str]) -> bool:
+def _matches(
+    tala: Tala, beats: Optional[int], feel: Optional[str], tempo: Optional[str]
+) -> bool:
     if beats is not None and tala.beats != beats:
         return False
     if feel and feel.lower() not in [f.lower() for f in tala.feel]:
@@ -23,7 +24,9 @@ def _matches(tala: Tala, beats: Optional[int], feel: Optional[str], tempo: Optio
     return True
 
 
-def _to_plain_text(talas: list[Tala], beats: Optional[int], feel: Optional[str], tempo: Optional[str]) -> str:
+def _to_plain_text(
+    talas: list[Tala], beats: Optional[int], feel: Optional[str], tempo: Optional[str]
+) -> str:
     headers = ["Tala", "Beats", "Vibhags", "Tempo", "Feel"]
     rows = [
         [
@@ -35,10 +38,16 @@ def _to_plain_text(talas: list[Tala], beats: Optional[int], feel: Optional[str],
         ]
         for t in talas
     ]
-    widths = [max(len(h), max((len(row[i]) for row in rows), default=0)) for i, h in enumerate(headers)]
+    widths = [
+        max(len(h), max((len(row[i]) for row in rows), default=0))
+        for i, h in enumerate(headers)
+    ]
     header_line = "  ".join(h.ljust(widths[i]) for i, h in enumerate(headers)).rstrip()
     separator = "-" * (sum(widths) + 2 * (len(widths) - 1))
-    data_lines = ["  ".join(cell.ljust(widths[i]) for i, cell in enumerate(row)).rstrip() for row in rows]
+    data_lines = [
+        "  ".join(cell.ljust(widths[i]) for i, cell in enumerate(row)).rstrip()
+        for row in rows
+    ]
 
     parts = []
     if any(v is not None for v in [beats, feel, tempo]):
@@ -57,11 +66,24 @@ def _to_plain_text(talas: list[Tala], beats: Optional[int], feel: Optional[str],
 
 
 def list_talas(
-    beats: Optional[int] = typer.Option(None, "--beats", "-b", help="Filter by number of beats (e.g. 16)", autocompletion=complete_beats),
-    feel: Optional[str] = typer.Option(None, "--feel", "-f", help="Filter by feel (e.g. lively, stately)", autocompletion=complete_feels),
-    tempo: Optional[str] = typer.Option(None, "--tempo", "-t", help="Filter by tempo (vilambit, madhya, drut)", autocompletion=complete_tempos),
-    plain: bool = typer.Option(False, "--plain", help="Output plain text, suitable for piping or redirection"),
-    output: Optional[Path] = typer.Option(None, "--output", "-o", help="Write plain text output to a file"),
+    beats: Optional[int] = typer.Option(
+        None, "--beats", "-b", help="Filter by number of beats (e.g. 16)",
+        autocompletion=complete_beats,
+    ),
+    feel: Optional[str] = typer.Option(
+        None, "--feel", "-f", help="Filter by feel (e.g. lively, stately)",
+        autocompletion=complete_feels,
+    ),
+    tempo: Optional[str] = typer.Option(
+        None, "--tempo", "-t", help="Filter by tempo (vilambit, madhya, drut)",
+        autocompletion=complete_tempos,
+    ),
+    plain: bool = typer.Option(
+        False, "--plain", help="Output plain text, suitable for piping or redirection",
+    ),
+    output: Optional[Path] = typer.Option(
+        None, "--output", "-o", help="Write plain text output to a file",
+    ),
 ) -> None:
     """List all talas, with optional filters."""
     talas = load_talas()
@@ -72,7 +94,9 @@ def list_talas(
         return
 
     if plain or output:
-        text = _to_plain_text(sorted(filtered, key=lambda t: t.name), beats, feel, tempo)
+        text = _to_plain_text(
+            sorted(filtered, key=lambda t: t.name), beats, feel, tempo
+        )
         if output:
             output.write_text(text)
             typer.echo(f"Wrote {len(filtered)} tala(s) to {output}")
