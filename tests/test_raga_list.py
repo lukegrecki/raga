@@ -43,7 +43,9 @@ def test_matches_time_no_match():
 
 
 def test_matches_mood_match():
-    assert _matches(_make_raga(mood=["serene", "romantic"]), None, None, "romantic", None)
+    assert _matches(
+        _make_raga(mood=["serene", "romantic"]), None, None, "romantic", None
+    )
 
 
 def test_matches_mood_no_match():

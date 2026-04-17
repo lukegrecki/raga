@@ -1,5 +1,3 @@
-import pytest
-
 from raga.commands.lookup import _build_corpus, _find_raga
 
 
