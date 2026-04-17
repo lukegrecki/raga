@@ -6,6 +6,7 @@ from rich.console import Console
 from rich.table import Table
 from rich.text import Text
 
+from raga.completers import complete_moods, complete_seasons, complete_thaats, complete_times
 from raga.display import TIME_COLORS, format_swara, time_label
 from raga.models import Raga, load_ragas
 
@@ -26,10 +27,10 @@ def _matches(raga: Raga, thaat: Optional[str], time: Optional[str], mood: Option
 
 
 def list_ragas(
-    thaat: Optional[str] = typer.Option(None, "--thaat", "-t", help="Filter by thaat (e.g. Kalyan, Bhairav)"),
-    time: Optional[str] = typer.Option(None, "--time", help="Filter by time (e.g. morning, evening, night)"),
-    mood: Optional[str] = typer.Option(None, "--mood", "-m", help="Filter by mood (e.g. devotional, romantic)"),
-    season: Optional[str] = typer.Option(None, "--season", "-s", help="Filter by season (e.g. spring, winter)"),
+    thaat: Optional[str] = typer.Option(None, "--thaat", "-t", help="Filter by thaat (e.g. Kalyan, Bhairav)", autocompletion=complete_thaats),
+    time: Optional[str] = typer.Option(None, "--time", help="Filter by time (e.g. morning, evening, night)", autocompletion=complete_times),
+    mood: Optional[str] = typer.Option(None, "--mood", "-m", help="Filter by mood (e.g. devotional, romantic)", autocompletion=complete_moods),
+    season: Optional[str] = typer.Option(None, "--season", "-s", help="Filter by season (e.g. spring, winter)", autocompletion=complete_seasons),
 ) -> None:
     """List all ragas, with optional filters."""
     ragas = load_ragas()

@@ -6,6 +6,7 @@ from rich.panel import Panel
 from rich.table import Table
 from rich.text import Text
 
+from raga.completers import complete_raga_names
 from raga.display import format_scale, format_swara, time_label
 from raga.models import Raga, load_ragas
 
@@ -80,7 +81,11 @@ def _render_raga(raga: Raga) -> Panel:
     return Panel(grid, title=title, border_style="bright_black", padding=(1, 2))
 
 
-def lookup(name: str = typer.Argument(..., help="Raga name to look up")) -> None:
+def lookup(
+    name: str = typer.Argument(
+        ..., help="Raga name to look up", autocompletion=complete_raga_names
+    ),
+) -> None:
     """Look up a raga by name."""
     ragas = load_ragas()
     raga, suggestions = _find_raga(name, ragas)

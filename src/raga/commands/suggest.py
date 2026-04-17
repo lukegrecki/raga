@@ -10,6 +10,7 @@ from rich.table import Table
 from rich.text import Text
 
 from raga.commands.lookup import _render_raga
+from raga.completers import complete_moods, complete_times
 from raga.display import TIME_COLORS, format_swara, time_label
 from raga.models import Raga, load_ragas
 
@@ -37,9 +38,10 @@ def _current_time_of_day() -> str:
 
 def suggest(
     time: Optional[str] = typer.Option(
-        None, "--time", help="Time of day (e.g. morning, evening). Defaults to current time."
+        None, "--time", help="Time of day (e.g. morning, evening). Defaults to current time.",
+        autocompletion=complete_times,
     ),
-    mood: Optional[str] = typer.Option(None, "--mood", "-m", help="Mood (e.g. devotional, romantic)"),
+    mood: Optional[str] = typer.Option(None, "--mood", "-m", help="Mood (e.g. devotional, romantic)", autocompletion=complete_moods),
     count: int = typer.Option(3, "--count", "-n", help="Number of ragas to suggest"),
 ) -> None:
     """Suggest ragas suited to the current time or a given mood."""

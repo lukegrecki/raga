@@ -5,6 +5,7 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.text import Text
 
+from raga.completers import complete_tala_names
 from raga.display import format_theka
 from raga.models import Tala, load_talas
 
@@ -70,7 +71,11 @@ def _render_tala(tala: Tala) -> Panel:
     return Panel(grid, title=title, border_style="bright_black", padding=(1, 2))
 
 
-def lookup_tala(name: str = typer.Argument(..., help="Tala name to look up")) -> None:
+def lookup_tala(
+    name: str = typer.Argument(
+        ..., help="Tala name to look up", autocompletion=complete_tala_names
+    ),
+) -> None:
     """Look up a tala by name."""
     talas = load_talas()
     tala, suggestions = _find_tala(name, talas)

@@ -6,6 +6,7 @@ from rich.console import Console
 from rich.table import Table
 from rich.text import Text
 
+from raga.completers import complete_beats, complete_feels, complete_tempos
 from raga.models import Tala, load_talas
 
 console = Console()
@@ -22,9 +23,9 @@ def _matches(tala: Tala, beats: Optional[int], feel: Optional[str], tempo: Optio
 
 
 def list_talas(
-    beats: Optional[int] = typer.Option(None, "--beats", "-b", help="Filter by number of beats (e.g. 16)"),
-    feel: Optional[str] = typer.Option(None, "--feel", "-f", help="Filter by feel (e.g. lively, stately)"),
-    tempo: Optional[str] = typer.Option(None, "--tempo", "-t", help="Filter by tempo (vilambit, madhya, drut)"),
+    beats: Optional[int] = typer.Option(None, "--beats", "-b", help="Filter by number of beats (e.g. 16)", autocompletion=complete_beats),
+    feel: Optional[str] = typer.Option(None, "--feel", "-f", help="Filter by feel (e.g. lively, stately)", autocompletion=complete_feels),
+    tempo: Optional[str] = typer.Option(None, "--tempo", "-t", help="Filter by tempo (vilambit, madhya, drut)", autocompletion=complete_tempos),
 ) -> None:
     """List all talas, with optional filters."""
     talas = load_talas()
