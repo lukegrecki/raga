@@ -6,20 +6,28 @@ from raga.commands.suggest import _current_time_of_day
 from raga.models import Raga
 
 
-def _make_raga(**kwargs) -> Raga:
-    defaults = dict(
-        name="Test",
-        thaat="Kalyan",
-        arohana=["Sa", "Re"],
-        avarohana=["Re", "Sa"],
-        vadi="Re",
-        samvadi="Pa",
-        time="evening",
-        mood=["serene", "romantic"],
-        season=None,
+def _make_raga(
+    name: str = "Test",
+    thaat: str = "Kalyan",
+    arohana: list[str] | None = None,
+    avarohana: list[str] | None = None,
+    vadi: str = "Re",
+    samvadi: str = "Pa",
+    time: str = "evening",
+    mood: list[str] | None = None,
+    season: str | None = None,
+) -> Raga:
+    return Raga(
+        name=name,
+        thaat=thaat,
+        arohana=arohana if arohana is not None else ["Sa", "Re"],
+        avarohana=avarohana if avarohana is not None else ["Re", "Sa"],
+        vadi=vadi,
+        samvadi=samvadi,
+        time=time,
+        mood=mood if mood is not None else ["serene", "romantic"],
+        season=season,
     )
-    defaults.update(kwargs)
-    return Raga(**defaults)
 
 
 @pytest.mark.parametrize("hour,expected", [

@@ -2,17 +2,22 @@ from raga.commands.list_talas import _matches
 from raga.models import Tala
 
 
-def _make_tala(**kwargs) -> Tala:
-    defaults = dict(
-        name="Test",
-        beats=16,
-        vibhags=[4, 4, 4, 4],
-        theka=["Dha"] * 16,
-        feel=["stately", "versatile"],
-        tempo=["vilambit", "madhya"],
+def _make_tala(
+    name: str = "Test",
+    beats: int = 16,
+    vibhags: list[int] | None = None,
+    theka: list[str] | None = None,
+    feel: list[str] | None = None,
+    tempo: list[str] | None = None,
+) -> Tala:
+    return Tala(
+        name=name,
+        beats=beats,
+        vibhags=vibhags if vibhags is not None else [4, 4, 4, 4],
+        theka=theka if theka is not None else ["Dha"] * 16,
+        feel=feel if feel is not None else ["stately", "versatile"],
+        tempo=tempo if tempo is not None else ["vilambit", "madhya"],
     )
-    defaults.update(kwargs)
-    return Tala(**defaults)
 
 
 def test_matches_no_filters():
