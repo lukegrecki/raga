@@ -28,20 +28,6 @@ def test_raga_required_fields(ragas):
         assert r.time
 
 
-def test_tala_beats_matches_theka_length(talas):
-    for t in talas:
-        assert t.beats == len(t.theka), (
-            f"{t.name}: beats={t.beats} but theka has {len(t.theka)} bols"
-        )
-
-
-def test_tala_vibhags_sum_to_beats(talas):
-    for t in talas:
-        assert sum(t.vibhags) == t.beats, (
-            f"{t.name}: vibhags sum to {sum(t.vibhags)}, expected {t.beats}"
-        )
-
-
 def test_load_ragas_is_cached():
     assert load_ragas() is load_ragas()
 

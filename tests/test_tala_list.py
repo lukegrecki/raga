@@ -13,8 +13,8 @@ def _make_tala(
     return Tala(
         name=name,
         beats=beats,
-        vibhags=vibhags if vibhags is not None else [4, 4, 4, 4],
-        theka=theka if theka is not None else ["Dha"] * 16,
+        vibhags=vibhags if vibhags is not None else [beats],
+        theka=theka if theka is not None else ["Dha"] * beats,
         feel=feel if feel is not None else ["stately", "versatile"],
         tempo=tempo if tempo is not None else ["vilambit", "madhya"],
     )
