@@ -2,6 +2,7 @@ import typer
 
 from raga.commands.list_ragas import list_ragas
 from raga.commands.lookup import lookup
+from raga.commands.play import play
 from raga.commands.suggest import suggest
 
 app = typer.Typer(
@@ -12,6 +13,7 @@ app = typer.Typer(
 app.command("lookup")(lookup)
 app.command("list")(list_ragas)
 app.command("suggest")(suggest)
+app.command("play")(play)
 
 if __name__ == "__main__":
     app()

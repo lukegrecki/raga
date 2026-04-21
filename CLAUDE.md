@@ -15,6 +15,11 @@ raga list --time evening      # filter by time of day
 raga list --mood devotional
 raga list --season spring
 
+raga play <name>              # play arohana+avarohana via FluidSynth
+raga play <name> --sa D4      # set Sa reference (default: C4)
+raga play <name> --tempo 60   # set tempo in BPM (default: 80)
+raga play <name> --soundfont /path/to/FluidR3_GM.sf2
+
 tala lookup <name>            # look up a tala by name (fuzzy match)
 tala list                     # list all talas
 tala list --beats 16          # filter by beat count
@@ -56,3 +61,14 @@ Swaras are stored as plain strings: `"Sa"`, `"Re"`, `"komal Re"`, `"Ga"`, `"koma
 ## Time values
 
 Valid values for the `time` field: `dawn`, `morning`, `afternoon`, `evening`, `dusk`, `night`, `late night`, `midnight`, `any`.
+
+## Audio playback
+
+`raga play` requires FluidSynth and a SoundFont file:
+
+```bash
+brew install fluid-synth          # macOS
+pip install pyfluidsynth          # Python binding (already in dependencies)
+```
+
+Specify the SoundFont via `--soundfont /path/to/FluidR3_GM.sf2` or set the `RAGA_SOUNDFONT` env var. A free GM SoundFont (e.g. FluidR3_GM.sf2) can be downloaded from the FluidSynth project or MuseScore.
