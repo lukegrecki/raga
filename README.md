@@ -29,6 +29,11 @@ raga suggest                    # suggest ragas for the current time of day
 raga suggest --time morning     # suggest for a specific time
 raga suggest --mood romantic    # suggest by mood
 raga suggest --time dusk --mood solemn --count 5
+
+raga play <name>                # play arohana+avarohana via FluidSynth
+raga play <name> --sa D4        # set Sa reference pitch (default: C4)
+raga play <name> --tempo 60     # set tempo in BPM (default: 80)
+raga play <name> --soundfont /path/to/FluidR3_GM.sf2
 ```
 
 ### tala
