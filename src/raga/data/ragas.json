@@ -29,7 +29,7 @@
   },
   {
     "name": "Bhairavi",
-    "aliases": ["Sindhu Bhairavi"],
+    "aliases": [],
     "thaat": "Bhairavi",
     "arohana": ["Sa", "komal Re", "komal Ga", "Ma", "Pa", "komal Dha", "komal Ni", "SA"],
     "avarohana": ["SA", "komal Ni", "komal Dha", "Pa", "Ma", "komal Ga", "komal Re", "Sa"],
@@ -127,7 +127,7 @@
   },
   {
     "name": "Darbari Kanada",
-    "aliases": ["Darbari", "Miyan ki Malhar"],
+    "aliases": ["Darbari"],
     "thaat": "Asavari",
     "arohana": ["Sa", "Re", "komal Ga", "Ma", "Pa", "komal Dha", "komal Ni", "SA"],
     "avarohana": ["SA", "komal Ni", "komal Dha", "Pa", "Ma", "komal Ga", "Re", "Sa"],
@@ -228,13 +228,13 @@
     "aliases": [],
     "thaat": "Khamaj",
     "arohana": ["Sa", "Re", "Ma", "Pa", "Ni", "SA"],
-    "avarohana": ["SA", "Ni", "Dha", "Pa", "Ma", "Ga", "Re", "Sa"],
+    "avarohana": ["SA", "komal Ni", "Dha", "Pa", "Ma", "Ga", "Re", "Sa"],
     "vadi": "Re",
     "samvadi": "Pa",
     "time": "night",
     "mood": ["romantic", "festive", "light"],
     "season": "monsoon",
-    "pakad": "N S R / M P N S' / N D P M G R S",
+    "pakad": "N S R / M P N S' / n D P M G R S",
     "description": "A popular raga of the monsoon season, evoking the joy of rain and youthful romance. Its pentatonic ascent (omitting Ga and Dha) gives it a buoyant, folk-like quality, while the full descent through all seven swaras adds richness. Widely used in thumri, dadra, and film music."
   },
   {
@@ -397,7 +397,7 @@
     "thaat": "Todi",
     "arohana": ["Sa", "Re", "komal Ga", "tivra Ma", "Pa", "Ni", "SA"],
     "avarohana": ["SA", "Ni", "Dha", "Pa", "tivra Ma", "komal Ga", "Re", "Sa"],
-    "vadi": "Ma",
+    "vadi": "tivra Ma",
     "samvadi": "Ni",
     "time": "afternoon",
     "mood": ["sweet", "yearning", "romantic"],

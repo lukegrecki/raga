@@ -28,6 +28,18 @@ def format_scale(swaras: list[str]) -> Text:
     return result
 
 
+def format_scale_highlighted(swaras: list[str], active: int | None) -> Text:
+    result = Text()
+    for i, swara in enumerate(swaras):
+        if i > 0:
+            result.append("  ")
+        start = len(result)
+        result.append_text(format_swara(swara))
+        if i == active:
+            result.stylize("reverse bold", start, len(result))
+    return result
+
+
 TIME_LABELS = {
     "dawn": "Dawn",
     "morning": "Morning",

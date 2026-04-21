@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import re
 import time
+from collections.abc import Callable
 from pathlib import Path
 
 SWARA_SEMITONES: dict[str, int] = {
@@ -57,6 +58,7 @@ def play_notes(
     tempo_bpm: int,
     soundfont_path: Path,
     gap_indices: list[int] | None = None,
+    on_note: Callable[[int | None], None] | None = None,
 ) -> None:
     import fluidsynth
 
@@ -70,10 +72,15 @@ def play_notes(
         fs.program_select(0, sfid, 0, 0)
 
         for i, note in enumerate(midi_notes):
+            if on_note is not None:
+                on_note(i)
             fs.noteon(0, note, 100)
             time.sleep(beat_duration)
             fs.noteoff(0, note)
             if i in gap_set:
                 time.sleep(beat_duration)
+
+        if on_note is not None:
+            on_note(None)
     finally:
         fs.delete()

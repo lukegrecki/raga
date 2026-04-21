@@ -7,12 +7,13 @@ import typer
 from rapidfuzz import fuzz, process
 from rich import print as rprint
 from rich.console import Console
+from rich.live import Live
 from rich.panel import Panel
 from rich.table import Table
 from rich.text import Text
 
 from raga.audio import parse_note_name, play_notes, swaras_to_midi
-from raga.display import format_scale
+from raga.display import format_scale, format_scale_highlighted
 from raga.models import Raga, load_ragas
 
 console = Console()
@@ -104,13 +105,6 @@ def play(
     grid.add_row("Arohana", format_scale(raga.arohana))
     grid.add_row("Avarohana", format_scale(raga.avarohana))
 
-    sequence_text = Text()
-    sequence_text.append_text(format_scale(raga.arohana))
-    sequence_text.append("  ·  ", style="dim")
-    sequence_text.append_text(format_scale(raga.avarohana))
-    grid.add_row("", "")
-    grid.add_row("Playing", sequence_text)
-
     console.print(Panel(
         grid,
         title=Text(raga.name, style="bold"),
@@ -118,4 +112,26 @@ def play(
         padding=(1, 2),
     ))
 
-    play_notes(midi_notes, tempo, resolved_sf, gap_indices)
+    arohana_len = len(raga.arohana)
+
+    def render_playing(active: int | None) -> Text:
+        if active is None:
+            aro_active: int | None = None
+            ava_active: int | None = None
+        elif active < arohana_len:
+            aro_active = active
+            ava_active = None
+        else:
+            aro_active = None
+            ava_active = active - arohana_len
+
+        line = Text()
+        line.append_text(format_scale_highlighted(raga.arohana, aro_active))
+        line.append("  ·  ", style="dim")
+        line.append_text(format_scale_highlighted(raga.avarohana, ava_active))
+        return line
+
+    with Live(render_playing(None), console=console, refresh_per_second=30, transient=False) as live:
+        def on_note(i: int | None) -> None:
+            live.update(render_playing(i))
+        play_notes(midi_notes, tempo, resolved_sf, gap_indices, on_note=on_note)
