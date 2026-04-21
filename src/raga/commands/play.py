@@ -11,7 +11,7 @@ from rich.panel import Panel
 from rich.table import Table
 from rich.text import Text
 
-from raga.audio import swaras_to_midi, parse_note_name, play_notes
+from raga.audio import parse_note_name, play_notes, swaras_to_midi
 from raga.display import format_scale
 from raga.models import Raga, load_ragas
 
@@ -54,11 +54,13 @@ def play(
     if tempo <= 0:
         raise typer.BadParameter("Tempo must be greater than 0.", param_hint="--tempo")
 
-    resolved_sf = soundfont or (Path(sf_env) if (sf_env := os.environ.get("RAGA_SOUNDFONT")) else None)
+    sf_env = os.environ.get("RAGA_SOUNDFONT")
+    resolved_sf = soundfont or (Path(sf_env) if sf_env else None)
     if resolved_sf is None:
         raise typer.BadParameter(
             "Provide --soundfont or set RAGA_SOUNDFONT. "
-            "Install FluidSynth via `brew install fluid-synth` and download a SoundFont like FluidR3_GM.sf2.",
+            "Install FluidSynth via `brew install fluid-synth` "
+            "and download a SoundFont like FluidR3_GM.sf2.",
             param_hint="--soundfont",
         )
 
@@ -80,7 +82,9 @@ def play(
                 rprint(f"  [cyan]•[/cyan] {s}")
         else:
             rprint(f"[red]No raga found matching[/red] [bold]{name!r}[/bold].")
-            rprint("[dim]Try[/dim] [bold]raga list[/bold] [dim]to browse all ragas.[/dim]")
+            rprint(
+                "[dim]Try[/dim] [bold]raga list[/bold] [dim]to browse all ragas.[/dim]"
+            )
         raise typer.Exit(1)
 
     all_swaras = raga.arohana + raga.avarohana
@@ -107,6 +111,11 @@ def play(
     grid.add_row("", "")
     grid.add_row("Playing", sequence_text)
 
-    console.print(Panel(grid, title=Text(raga.name, style="bold"), border_style="bright_black", padding=(1, 2)))
+    console.print(Panel(
+        grid,
+        title=Text(raga.name, style="bold"),
+        border_style="bright_black",
+        padding=(1, 2),
+    ))
 
     play_notes(midi_notes, tempo, resolved_sf, gap_indices)

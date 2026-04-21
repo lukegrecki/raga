@@ -27,7 +27,9 @@ _NOTE_RE = re.compile(r"^([A-G])(#|b)?(-?\d+)$")
 def parse_note_name(name: str) -> int:
     m = _NOTE_RE.match(name)
     if not m:
-        raise ValueError(f"Invalid note name: {name!r}. Expected format like C4, D#3, Eb5.")
+        raise ValueError(
+            f"Invalid note name: {name!r}. Expected format like C4, D#3, Eb5."
+        )
     letter, accidental, octave_str = m.groups()
     semitone = _NOTE_NAMES[letter]
     if accidental == "#":
@@ -43,7 +45,9 @@ def swaras_to_midi(swaras: list[str], sa_midi: int) -> list[int]:
     result = []
     for swara in swaras:
         if swara not in SWARA_SEMITONES:
-            raise ValueError(f"Unknown swara: {swara!r}. Must be one of {list(SWARA_SEMITONES)}")
+            raise ValueError(
+                f"Unknown swara: {swara!r}. Must be one of {list(SWARA_SEMITONES)}"
+            )
         result.append(sa_midi + SWARA_SEMITONES[swara])
     return result
 
