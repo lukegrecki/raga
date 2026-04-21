@@ -131,7 +131,9 @@ def play(
         line.append_text(format_scale_highlighted(raga.avarohana, ava_active))
         return line
 
-    with Live(render_playing(None), console=console, refresh_per_second=30, transient=False) as live:
+    with Live(
+        render_playing(None), console=console, refresh_per_second=30, transient=False
+    ) as live:
         def on_note(i: int | None) -> None:
             live.update(render_playing(i))
         play_notes(midi_notes, tempo, resolved_sf, gap_indices, on_note=on_note)
