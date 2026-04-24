@@ -72,9 +72,32 @@ def play_notes(
 
     fs = fluidsynth.Synth()
     try:
-        fs.start(driver="coreaudio")
-        sfid = fs.sfload(str(soundfont_path))
-        fs.program_select(0, sfid, 0, 0)
+        try:
+            fs.start(driver="coreaudio")
+        except RuntimeError as e:
+            raise RuntimeError(
+                "Failed to start FluidSynth audio driver. "
+                "Ensure FluidSynth is installed: `brew install fluid-synth` (macOS)"
+            ) from e
+
+        try:
+            sfid = fs.sfload(str(soundfont_path))
+            if sfid == -1:
+                raise RuntimeError("Invalid soundfont ID returned")
+        except (RuntimeError, FileNotFoundError) as e:
+            raise RuntimeError(
+                f"Failed to load soundfont: {soundfont_path}\n"
+                f"Check that the file exists and is a valid SoundFont.\n"
+                f"Or set RAGA_SOUNDFONT environment variable to a valid SoundFont path."
+            ) from e
+
+        try:
+            fs.program_select(0, sfid, 0, 0)
+        except RuntimeError as e:
+            raise RuntimeError(
+                "Failed to select soundfont program. "
+                "The soundfont file may be corrupted or incompatible."
+            ) from e
 
         for i, note in enumerate(midi_notes):
             if on_note is not None:
