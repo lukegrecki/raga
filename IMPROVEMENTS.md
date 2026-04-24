@@ -24,9 +24,10 @@
 
 ## Testing Gaps
 
-- No end-to-end CLI tests via Typer's test runner — commands are unit-tested but not as a user would invoke them.
+✅ **End-to-end CLI tests via Typer's test runner** — Fixed in commit d785b69
+
 - `completers.py` has zero test coverage.
-- No error-path tests: missing JSON file, invalid `--sa` note, soundfont not found, negative tempo.
+- No error-path tests: missing JSON file, soundfont file not found.
 
 ---
 
@@ -42,6 +43,6 @@
 
 1. ✅ Fix Pilu `vadi` data bug
 2. ✅ Add MIDI bounds validation
-3. Add FluidSynth init error handling
-4. Deduplicate search logic into `search.py`
-5. Fill testing gaps (completers, CLI integration, error paths)
+3. ✅ Add FluidSynth init error handling
+4. ✅ Deduplicate search logic into `search.py`
+5. 🟨 Fill testing gaps: ✅ CLI integration, 🔲 completers coverage, 🔲 error-path tests
