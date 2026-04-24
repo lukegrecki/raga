@@ -1,47 +1,15 @@
 import typer
-from rapidfuzz import fuzz, process
 from rich import print as rprint
 from rich.console import Console
 from rich.panel import Panel
 from rich.text import Text
 
+from raga.search import find_entity
 from raga.completers import complete_tala_names
 from raga.display import format_theka
 from raga.models import Tala, load_talas
 
 console = Console()
-
-FUZZY_EXACT_THRESHOLD = 75
-FUZZY_SUGGESTION_THRESHOLD = 40
-
-
-def _build_corpus(talas: list[Tala]) -> list[tuple[str, Tala]]:
-    corpus: list[tuple[str, Tala]] = []
-    for tala in talas:
-        corpus.append((tala.name.lower(), tala))
-        for alias in tala.aliases:
-            corpus.append((alias.lower(), tala))
-    return corpus
-
-
-def _find_tala(query: str, talas: list[Tala]) -> tuple[Tala | None, list[str]]:
-    corpus = _build_corpus(talas)
-    names = [c[0] for c in corpus]
-    results = process.extract(query.lower(), names, scorer=fuzz.WRatio, limit=5)
-
-    if not results:
-        return None, []
-
-    if results[0][1] >= FUZZY_EXACT_THRESHOLD:
-        idx = names.index(results[0][0])
-        return corpus[idx][1], []
-
-    suggestions = []
-    for name, score, _ in results:
-        if score >= FUZZY_SUGGESTION_THRESHOLD:
-            idx = names.index(name)
-            suggestions.append(corpus[idx][1].name)
-    return None, list(dict.fromkeys(suggestions))
 
 
 def _render_tala(tala: Tala) -> Panel:
@@ -81,7 +49,7 @@ def lookup_tala(
 ) -> None:
     """Look up a tala by name."""
     talas = load_talas()
-    tala, suggestions = _find_tala(name, talas)
+    tala, suggestions = find_entity(name, talas)
 
     if tala:
         console.print(_render_tala(tala))

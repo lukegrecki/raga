@@ -6,6 +6,7 @@ from rich import print as rprint
 from rich.console import Console
 from rich.table import Table
 
+from raga.search import to_plain_text
 from raga.completers import complete_beats, complete_feels, complete_tempos
 from raga.models import Tala, load_talas
 
@@ -22,47 +23,6 @@ def _matches(
     if tempo and tempo.lower() not in [t.lower() for t in tala.tempo]:
         return False
     return True
-
-
-def _to_plain_text(
-    talas: list[Tala], beats: Optional[int], feel: Optional[str], tempo: Optional[str]
-) -> str:
-    headers = ["Tala", "Beats", "Vibhags", "Tempo", "Feel"]
-    rows = [
-        [
-            t.name,
-            str(t.beats),
-            "+".join(str(v) for v in t.vibhags),
-            " / ".join(x.title() for x in t.tempo),
-            ", ".join(t.feel) if t.feel else "-",
-        ]
-        for t in talas
-    ]
-    widths = [
-        max(len(h), max((len(row[i]) for row in rows), default=0))
-        for i, h in enumerate(headers)
-    ]
-    header_line = "  ".join(h.ljust(widths[i]) for i, h in enumerate(headers)).rstrip()
-    separator = "-" * (sum(widths) + 2 * (len(widths) - 1))
-    data_lines = [
-        "  ".join(cell.ljust(widths[i]) for i, cell in enumerate(row)).rstrip()
-        for row in rows
-    ]
-
-    parts = []
-    if any(v is not None for v in [beats, feel, tempo]):
-        filter_parts = []
-        if beats is not None:
-            filter_parts.append(f"beats={beats}")
-        if feel:
-            filter_parts.append(f"feel={feel}")
-        if tempo:
-            filter_parts.append(f"tempo={tempo}")
-        parts.append(f"Showing {len(talas)} tala(s) · {', '.join(filter_parts)}")
-        parts.append("")
-
-    parts += [header_line, separator] + data_lines
-    return "\n".join(parts)
 
 
 def list_talas(
@@ -94,8 +54,27 @@ def list_talas(
         return
 
     if plain or output:
-        text = _to_plain_text(
-            sorted(filtered, key=lambda t: t.name), beats, feel, tempo
+        sorted_filtered = sorted(filtered, key=lambda t: t.name)
+        headers = ["Tala", "Beats", "Vibhags", "Tempo", "Feel"]
+        filter_parts = []
+        if beats is not None:
+            filter_parts.append(f"beats={beats}")
+        if feel:
+            filter_parts.append(f"feel={feel}")
+        if tempo:
+            filter_parts.append(f"tempo={tempo}")
+        filter_info = ", ".join(filter_parts) if filter_parts else ""
+        text = to_plain_text(
+            sorted_filtered,
+            headers,
+            lambda t: [
+                t.name,
+                str(t.beats),
+                "+".join(str(v) for v in t.vibhags),
+                " / ".join(x.title() for x in t.tempo),
+                ", ".join(t.feel) if t.feel else "-",
+            ],
+            filter_info,
         )
         if output:
             output.write_text(text)

@@ -6,6 +6,7 @@ from rich import print as rprint
 from rich.console import Console
 from rich.table import Table
 
+from raga.search import to_plain_text
 from raga.completers import (
     complete_moods,
     complete_seasons,
@@ -35,54 +36,6 @@ def _matches(
         if raga.season is None or raga.season.lower() != season.lower():
             return False
     return True
-
-
-def _to_plain_text(
-    ragas: list[Raga],
-    thaat: Optional[str],
-    time: Optional[str],
-    mood: Optional[str],
-    season: Optional[str],
-) -> str:
-    headers = ["Raga", "Thaat", "Time", "Vadi", "Samvadi", "Mood"]
-    rows = [
-        [
-            r.name,
-            r.thaat,
-            r.time.title(),
-            r.vadi,
-            r.samvadi,
-            ", ".join(r.mood) if r.mood else "-",
-        ]
-        for r in ragas
-    ]
-    widths = [
-        max(len(h), max((len(row[i]) for row in rows), default=0))
-        for i, h in enumerate(headers)
-    ]
-    header_line = "  ".join(h.ljust(widths[i]) for i, h in enumerate(headers)).rstrip()
-    separator = "-" * (sum(widths) + 2 * (len(widths) - 1))
-    data_lines = [
-        "  ".join(cell.ljust(widths[i]) for i, cell in enumerate(row)).rstrip()
-        for row in rows
-    ]
-
-    parts = []
-    if any([thaat, time, mood, season]):
-        filter_parts = []
-        if thaat:
-            filter_parts.append(f"thaat={thaat}")
-        if time:
-            filter_parts.append(f"time={time}")
-        if mood:
-            filter_parts.append(f"mood={mood}")
-        if season:
-            filter_parts.append(f"season={season}")
-        parts.append(f"Showing {len(ragas)} raga(s) · {', '.join(filter_parts)}")
-        parts.append("")
-
-    parts += [header_line, separator] + data_lines
-    return "\n".join(parts)
 
 
 def list_ragas(
@@ -118,8 +71,30 @@ def list_ragas(
         return
 
     if plain or output:
-        text = _to_plain_text(
-            sorted(filtered, key=lambda r: r.name), thaat, time, mood, season
+        sorted_filtered = sorted(filtered, key=lambda r: r.name)
+        headers = ["Raga", "Thaat", "Time", "Vadi", "Samvadi", "Mood"]
+        filter_parts = []
+        if thaat:
+            filter_parts.append(f"thaat={thaat}")
+        if time:
+            filter_parts.append(f"time={time}")
+        if mood:
+            filter_parts.append(f"mood={mood}")
+        if season:
+            filter_parts.append(f"season={season}")
+        filter_info = ", ".join(filter_parts) if filter_parts else ""
+        text = to_plain_text(
+            sorted_filtered,
+            headers,
+            lambda r: [
+                r.name,
+                r.thaat,
+                r.time.title(),
+                r.vadi,
+                r.samvadi,
+                ", ".join(r.mood) if r.mood else "-",
+            ],
+            filter_info,
         )
         if output:
             output.write_text(text)

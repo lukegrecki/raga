@@ -1,49 +1,16 @@
 import typer
-from rapidfuzz import fuzz, process
 from rich import print as rprint
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
 from rich.text import Text
 
+from raga.search import find_entity
 from raga.completers import complete_raga_names
 from raga.display import format_scale, format_swara, time_label
 from raga.models import Raga, load_ragas
 
 console = Console()
-
-FUZZY_EXACT_THRESHOLD = 75
-FUZZY_SUGGESTION_THRESHOLD = 40
-
-
-def _build_corpus(ragas: list[Raga]) -> list[tuple[str, Raga]]:
-    corpus: list[tuple[str, Raga]] = []
-    for raga in ragas:
-        corpus.append((raga.name.lower(), raga))
-        for alias in raga.aliases:
-            corpus.append((alias.lower(), raga))
-    return corpus
-
-
-def _find_raga(query: str, ragas: list[Raga]) -> tuple[Raga | None, list[str]]:
-    corpus = _build_corpus(ragas)
-    names = [c[0] for c in corpus]
-    results = process.extract(query.lower(), names, scorer=fuzz.WRatio, limit=5)
-
-    if not results:
-        return None, []
-
-    best_score = results[0][1]
-    if best_score >= FUZZY_EXACT_THRESHOLD:
-        idx = names.index(results[0][0])
-        return corpus[idx][1], []
-
-    suggestions = []
-    for name, score, _ in results:
-        if score >= FUZZY_SUGGESTION_THRESHOLD:
-            idx = names.index(name)
-            suggestions.append(corpus[idx][1].name)
-    return None, list(dict.fromkeys(suggestions))
 
 
 def _render_raga(raga: Raga) -> Panel:
@@ -91,7 +58,7 @@ def lookup(
 ) -> None:
     """Look up a raga by name."""
     ragas = load_ragas()
-    raga, suggestions = _find_raga(name, ragas)
+    raga, suggestions = find_entity(name, ragas)
 
     if raga:
         console.print(_render_raga(raga))
