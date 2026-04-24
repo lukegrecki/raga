@@ -18,8 +18,7 @@
 
 ## Architecture
 
-**Duplicated search/list logic**
-- `lookup.py` and `lookup_tala.py` share nearly identical `_build_corpus()` and `_find_*()` structures. Same duplication exists between `list_ragas.py` and `list_talas.py`. A shared `search.py` utility would eliminate this and make adding future entity types cheap.
+✅ **Duplicated search/list logic** — Fixed in commit a8e62b1
 
 ---
 
