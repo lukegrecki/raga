@@ -13,8 +13,7 @@
 **Unhandled errors during FluidSynth init** (`audio.py`)
 - `fs.start()`, `fs.sfload()`, and `fs.program_select()` have no error handling. A bad soundfont file or missing driver produces a raw traceback instead of a user-friendly message. The try/finally only wraps the playback loop, not initialization.
 
-**Magic numbers in fuzzy search** (`commands/lookup.py`, `commands/lookup_tala.py`)
-- Thresholds `75` (exact match) and `40` (suggestion) are unexplained inline constants. Should be named module-level constants (e.g. `FUZZY_EXACT_THRESHOLD`, `FUZZY_SUGGESTION_THRESHOLD`).
+✅ **Magic numbers in fuzzy search** — Fixed in commit 3e04c77
 
 ---
 
