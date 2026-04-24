@@ -12,6 +12,9 @@ from raga.models import Raga, load_ragas
 
 console = Console()
 
+FUZZY_EXACT_THRESHOLD = 75
+FUZZY_SUGGESTION_THRESHOLD = 40
+
 
 def _build_corpus(ragas: list[Raga]) -> list[tuple[str, Raga]]:
     corpus: list[tuple[str, Raga]] = []
@@ -31,13 +34,13 @@ def _find_raga(query: str, ragas: list[Raga]) -> tuple[Raga | None, list[str]]:
         return None, []
 
     best_score = results[0][1]
-    if best_score >= 75:
+    if best_score >= FUZZY_EXACT_THRESHOLD:
         idx = names.index(results[0][0])
         return corpus[idx][1], []
 
     suggestions = []
     for name, score, _ in results:
-        if score >= 40:
+        if score >= FUZZY_SUGGESTION_THRESHOLD:
             idx = names.index(name)
             suggestions.append(corpus[idx][1].name)
     return None, list(dict.fromkeys(suggestions))

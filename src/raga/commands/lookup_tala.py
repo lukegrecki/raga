@@ -11,6 +11,9 @@ from raga.models import Tala, load_talas
 
 console = Console()
 
+FUZZY_EXACT_THRESHOLD = 75
+FUZZY_SUGGESTION_THRESHOLD = 40
+
 
 def _build_corpus(talas: list[Tala]) -> list[tuple[str, Tala]]:
     corpus: list[tuple[str, Tala]] = []
@@ -29,13 +32,13 @@ def _find_tala(query: str, talas: list[Tala]) -> tuple[Tala | None, list[str]]:
     if not results:
         return None, []
 
-    if results[0][1] >= 75:
+    if results[0][1] >= FUZZY_EXACT_THRESHOLD:
         idx = names.index(results[0][0])
         return corpus[idx][1], []
 
     suggestions = []
     for name, score, _ in results:
-        if score >= 40:
+        if score >= FUZZY_SUGGESTION_THRESHOLD:
             idx = names.index(name)
             suggestions.append(corpus[idx][1].name)
     return None, list(dict.fromkeys(suggestions))
