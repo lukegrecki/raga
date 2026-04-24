@@ -39,7 +39,12 @@ def parse_note_name(name: str) -> int:
         semitone -= 1
     octave = int(octave_str)
     # MIDI: C4 = 60, so C-1 = 0
-    return (octave + 1) * 12 + semitone
+    midi_value = (octave + 1) * 12 + semitone
+    if not 0 <= midi_value <= 127:
+        raise ValueError(
+            f"Note {name!r} produces MIDI value {midi_value}, outside valid range 0–127."
+        )
+    return midi_value
 
 
 def swaras_to_midi(swaras: list[str], sa_midi: int) -> list[int]:

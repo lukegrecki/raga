@@ -411,7 +411,7 @@
     "thaat": "Kafi",
     "arohana": ["Sa", "Re", "komal Ga", "Ma", "Pa", "Dha", "Ni", "SA"],
     "avarohana": ["SA", "komal Ni", "Dha", "Pa", "Ma", "komal Ga", "Re", "Sa"],
-    "vadi": "Ga",
+    "vadi": "komal Ga",
     "samvadi": "Ni",
     "time": "any",
     "mood": ["playful", "romantic", "folk-like"],
