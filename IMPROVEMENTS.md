@@ -2,11 +2,9 @@
 
 ## Bug / Data Issues
 
-**Pilu raga vadi mismatch** (`data/ragas.json`)
-- `vadi` is set to `"Ga"` (shuddha) but the scale only contains `"komal Ga"`. Should be `"komal Ga"`.
+✅ **Pilu raga vadi mismatch** — Fixed in commit fa06e8b
 
-**MIDI bounds not validated** (`audio.py`)
-- `parse_note_name()` accepts `"C99"` without complaint, producing out-of-range MIDI values. Should reject values outside 0–127.
+✅ **MIDI bounds validation** — Fixed in commit fa06e8b
 
 ---
 
@@ -45,8 +43,8 @@
 
 ## Priority Order
 
-1. Fix Pilu `vadi` data bug
-2. Add FluidSynth init error handling
-3. Add MIDI bounds validation
+1. ✅ Fix Pilu `vadi` data bug
+2. ✅ Add MIDI bounds validation
+3. Add FluidSynth init error handling
 4. Deduplicate search logic into `search.py`
 5. Fill testing gaps (completers, CLI integration, error paths)
