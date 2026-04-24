@@ -6,7 +6,6 @@ from rich import print as rprint
 from rich.console import Console
 from rich.table import Table
 
-from raga.search import to_plain_text
 from raga.completers import (
     complete_moods,
     complete_seasons,
@@ -15,6 +14,7 @@ from raga.completers import (
 )
 from raga.display import format_swara, time_label
 from raga.models import Raga, load_ragas
+from raga.search import to_plain_text
 
 console = Console()
 

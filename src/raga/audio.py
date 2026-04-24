@@ -42,7 +42,8 @@ def parse_note_name(name: str) -> int:
     midi_value = (octave + 1) * 12 + semitone
     if not 0 <= midi_value <= 127:
         raise ValueError(
-            f"Note {name!r} produces MIDI value {midi_value}, outside valid range 0–127."
+            f"Note {name!r} produces MIDI value {midi_value}, "
+            f"outside valid range 0–127."
         )
     return midi_value
 

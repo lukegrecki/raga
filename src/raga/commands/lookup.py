@@ -5,10 +5,10 @@ from rich.panel import Panel
 from rich.table import Table
 from rich.text import Text
 
-from raga.search import find_entity
 from raga.completers import complete_raga_names
 from raga.display import format_scale, format_swara, time_label
 from raga.models import Raga, load_ragas
+from raga.search import find_entity
 
 console = Console()
 

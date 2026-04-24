@@ -6,9 +6,9 @@ from rich import print as rprint
 from rich.console import Console
 from rich.table import Table
 
-from raga.search import to_plain_text
 from raga.completers import complete_beats, complete_feels, complete_tempos
 from raga.models import Tala, load_talas
+from raga.search import to_plain_text
 
 console = Console()
 

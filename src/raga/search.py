@@ -1,5 +1,6 @@
+from typing import Callable, Protocol, TypeVar
+
 from rapidfuzz import fuzz, process
-from typing import TypeVar, Callable, Protocol
 
 FUZZY_EXACT_THRESHOLD = 75
 FUZZY_SUGGESTION_THRESHOLD = 40
@@ -30,8 +31,9 @@ def find_entity(
     """Fuzzy search for an entity, returning best match and suggestions.
 
     Returns a tuple of (matched_entity, suggestion_names).
-    If a high-confidence match is found, matched_entity is set and suggestions is empty.
-    Otherwise, matched_entity is None and suggestions contains candidates above the threshold.
+    If a high-confidence match is found, matched_entity is set and
+    suggestions is empty. Otherwise, matched_entity is None and suggestions
+    contains candidates above the threshold.
     """
     corpus = build_corpus(entities)
     names = [c[0] for c in corpus]

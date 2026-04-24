@@ -4,10 +4,10 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.text import Text
 
-from raga.search import find_entity
 from raga.completers import complete_tala_names
 from raga.display import format_theka
 from raga.models import Tala, load_talas
+from raga.search import find_entity
 
 console = Console()
 
