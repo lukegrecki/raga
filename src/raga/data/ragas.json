@@ -10,7 +10,7 @@
     "time": "evening",
     "mood": ["serene", "romantic", "devotional"],
     "season": null,
-    "pakad": "N R G M(t) D N S'",
+    "pakad": "Ni Re Ga tivra Ma Dha Ni SA",
     "description": "One of the most foundational and widely taught ragas of Hindustani music. Its use of tivra Ma gives it an elevated, expansive quality. Often the first raga a student learns in Kalyan thaat."
   },
   {
@@ -24,7 +24,7 @@
     "time": "dawn",
     "mood": ["devotional", "solemn", "peaceful"],
     "season": null,
-    "pakad": "S r G M P d N S'",
+    "pakad": "Sa komal Re Ga Ma Pa komal Dha Ni SA",
     "description": "A morning raga associated with the deity Shiva. The komal Re and komal Dha create a uniquely austere and devotional atmosphere. Widely used in bhajans and dhrupad compositions."
   },
   {
@@ -38,7 +38,7 @@
     "time": "morning",
     "mood": ["devotional", "tender", "melancholic"],
     "season": null,
-    "pakad": "S r g M P d n S'",
+    "pakad": "Sa komal Re komal Ga Ma Pa komal Dha komal Ni SA",
     "description": "Known as the queen of ragas and traditionally the last raga performed in a concert. Uses all four komal swaras, giving it a deeply emotional and devotional character. Extremely versatile — heard in classical, semi-classical, and film music alike."
   },
   {
@@ -52,7 +52,7 @@
     "time": "morning",
     "mood": ["yearning", "pathos", "contemplative"],
     "season": null,
-    "pakad": "r g M(t) P d N S'",
+    "pakad": "komal Re komal Ga tivra Ma Pa komal Dha Ni SA",
     "description": "Considered one of the most complex and emotionally rich ragas. The combination of komal Re, komal Ga, and tivra Ma creates an intensely yearning quality. A raga for experienced performers — demands meticulous intonation."
   },
   {
@@ -66,7 +66,7 @@
     "time": "dusk",
     "mood": ["restless", "intense", "longing"],
     "season": null,
-    "pakad": "S r G M(t) D N S'",
+    "pakad": "Sa komal Re Ga tivra Ma Dha Ni SA",
     "description": "A raga of twilight and transition. The absence of Pa (Pancham) and the prominent komal Re lend it an unresolved, searching quality. Often described as evoking the mood just before sunset."
   },
   {
@@ -80,7 +80,7 @@
     "time": "dusk",
     "mood": ["solemn", "devotional", "expansive"],
     "season": null,
-    "pakad": "G M(t) P d N S' N d P",
+    "pakad": "Ga tivra Ma Pa komal Dha Ni SA Ni komal Dha Pa",
     "description": "A grave and majestic raga performed at dusk. Shares its scale with Todi but differs in its characteristic phrases and emotional weight. The juxtaposition of tivra Ma and komal Dha creates a distinctive austere color."
   },
   {
@@ -94,7 +94,7 @@
     "time": "afternoon",
     "mood": ["romantic", "melancholic", "playful"],
     "season": "spring",
-    "pakad": "S R g M P D n S'",
+    "pakad": "Sa Re komal Ga Ma Pa Dha komal Ni SA",
     "description": "Associated with the spring season and the Holi festival. The komal Ga and komal Ni give it a folk-like quality. Closely related to the Dorian mode in Western music. Popular in thumri and dadra genres."
   },
   {
@@ -108,7 +108,7 @@
     "time": "evening",
     "mood": ["romantic", "light", "festive"],
     "season": null,
-    "pakad": "G M P D n D P M G R S",
+    "pakad": "Ga Ma Pa Dha komal Ni Dha Pa Ma Ga Re Sa",
     "description": "A light and romantic raga used in thumri, dadra, and folk music. The shuddha Ni in arohana and komal Ni in avarohana is its defining feature. Many well-known film songs are based on Khamaj."
   },
   {
@@ -122,7 +122,7 @@
     "time": "morning",
     "mood": ["cheerful", "fresh", "auspicious"],
     "season": null,
-    "pakad": "G M D P M G R S",
+    "pakad": "Ga Ma Dha Pa Ma Ga Re Sa",
     "description": "Uses all shuddha (natural) swaras, making it the closest Hindustani equivalent of the Western major scale. Associated with morning freshness and clarity. Despite its simplicity, highly nuanced in performance."
   },
   {
@@ -136,7 +136,7 @@
     "time": "late night",
     "mood": ["serious", "majestic", "dignified"],
     "season": null,
-    "pakad": "S R g M P d n d P M g R S",
+    "pakad": "Sa Re komal Ga Ma Pa komal Dha komal Ni komal Dha Pa Ma komal Ga Re Sa",
     "description": "Said to have been created by the legendary Miyan Tansen for the court of Emperor Akbar. A raga of immense dignity and gravitas, performed deep in the night. The andolan (oscillation) on komal Ga and komal Dha is its defining ornament."
   },
   {
@@ -150,7 +150,7 @@
     "time": "late night",
     "mood": ["longing", "romantic", "serene"],
     "season": null,
-    "pakad": "g M D n S' n D M g R S",
+    "pakad": "komal Ga Ma Dha komal Ni SA komal Ni Dha Ma komal Ga Re Sa",
     "description": "A raga of deep emotion and longing, typically associated with a lover awaiting reunion. Pa is avoided in the ascent. One of the most beloved ragas in thumri and khyal alike."
   },
   {
@@ -164,7 +164,7 @@
     "time": "evening",
     "mood": ["devotional", "serene", "contemplative"],
     "season": null,
-    "pakad": "M M M(t) P / N D P / M M R S",
+    "pakad": "Ma Ma tivra Ma Pa / Ni Dha Pa / Ma Ma Re Sa",
     "description": "Unique in its use of both shuddha and tivra Ma. Re and Ga are avoided in the ascent. The repetition of Ma in the pakad is characteristic. A dignified raga used widely in bhajans and dhrupad."
   },
   {
@@ -178,7 +178,7 @@
     "time": "midnight",
     "mood": ["deep", "serious", "meditative"],
     "season": null,
-    "pakad": "S g M d n S'",
+    "pakad": "Sa komal Ga Ma komal Dha komal Ni SA",
     "description": "A pentatonic raga (audav-audav) — Re and Pa are completely absent. Performed only in the dead of night, it has a profoundly introspective and mysterious character. Associated with deep meditation and one of the most atmospheric ragas in the repertoire."
   },
   {
@@ -192,7 +192,7 @@
     "time": "afternoon",
     "mood": ["melancholic", "beautiful", "wistful"],
     "season": null,
-    "pakad": "S R G M P d n S'",
+    "pakad": "Sa Re Ga Ma Pa komal Dha komal Ni SA",
     "description": "A raga that uniquely combines shuddha Re and Ga with komal Dha and Ni, creating a bittersweet character. Closely related to the Carnatic raga of the same name; its combination of notes does not fit neatly into any of the ten Hindustani thaats. Popular in Hindustani vocal and instrumental music."
   },
   {
@@ -206,7 +206,7 @@
     "time": "late night",
     "mood": ["heroic", "romantic", "joyful"],
     "season": null,
-    "pakad": "G M M(t) P D / N D P M G R S",
+    "pakad": "Ga Ma tivra Ma Pa Dha / Ni Dha Pa Ma Ga Re Sa",
     "description": "A raga of strength and romance performed late in the evening. Like Kedar, Hameer uses both shuddha and tivra Ma, but includes Re and Ga in the ascent, giving it a fuller, more assertive character. The descent through tivra Ma then shuddha Ma is its most distinctive feature."
   },
   {
@@ -220,7 +220,7 @@
     "time": "morning",
     "mood": ["devotional", "tender", "expressive"],
     "season": null,
-    "pakad": "S r g M P / d n D P M g r S",
+    "pakad": "Sa komal Re komal Ga Ma Pa / komal Dha komal Ni Dha Pa Ma komal Ga komal Re Sa",
     "description": "The semi-classical variant of Bhairavi, distinguished by its use of shuddha Dha (and occasionally shuddha Ni) as ornamental touches against the otherwise komal scale. This freedom gives Sindhi Bhairavi a warmer, more folk-inflected quality than pure Bhairavi and makes it the predominant form heard in thumri and semi-classical performance."
   },
   {
@@ -234,7 +234,7 @@
     "time": "night",
     "mood": ["romantic", "festive", "light"],
     "season": "monsoon",
-    "pakad": "N S R / M P N S' / n D P M G R S",
+    "pakad": "Ni Sa Re / Ma Pa Ni SA / komal Ni Dha Pa Ma Ga Re Sa",
     "description": "A popular raga of the monsoon season, evoking the joy of rain and youthful romance. Its pentatonic ascent (omitting Ga and Dha) gives it a buoyant, folk-like quality, while the full descent through all seven swaras adds richness. Widely used in thumri, dadra, and film music."
   },
   {
@@ -248,7 +248,7 @@
     "time": "late night",
     "mood": ["mysterious", "meditative", "deep"],
     "season": null,
-    "pakad": "S g M d n S'",
+    "pakad": "Sa komal Ga Ma komal Dha komal Ni SA",
     "description": "A pentatonic raga that omits both Re and Pa entirely, using the same five swaras as Malkaus — Sa, komal Ga, Ma, komal Dha, and komal Ni. Traditionally treated as a separate raga in some lineages, the distinction from Malkaus lies in subtle differences of phrasing and emphasis rather than scale. Creates a similarly introspective atmosphere, suited to deep concentration in the late hours of the night."
   },
   {
@@ -262,7 +262,7 @@
     "time": "dawn",
     "mood": ["devotional", "peaceful", "tender"],
     "season": null,
-    "pakad": "r M P d S' / d P M r S",
+    "pakad": "komal Re Ma Pa komal Dha SA / komal Dha Pa Ma komal Re Sa",
     "description": "A dawn raga from Bhairav thaat. Ga is entirely absent, giving it a sparse, open quality distinct from Bhairav itself. The pentatonic ascent (omitting Ga and Ni) and the prominent komal Re create a serene, devotional atmosphere well suited to early morning."
   },
   {
@@ -276,7 +276,7 @@
     "time": "dusk",
     "mood": ["solemn", "devotional", "austere"],
     "season": "winter",
-    "pakad": "r M M(t) P d N S'",
+    "pakad": "komal Re Ma tivra Ma Pa komal Dha Ni SA",
     "description": "One of the most austere and spiritually weighty ragas. Ga is entirely absent. The vadi komal Re combined with both shuddha and tivra Ma creates a very distinctive color. Associated with winter evenings and devotional singing."
   },
   {
