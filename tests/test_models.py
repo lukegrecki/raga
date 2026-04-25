@@ -20,7 +20,6 @@ def test_talas_are_tala_instances(talas):
 def test_raga_required_fields(ragas):
     for r in ragas:
         assert r.name
-        assert r.thaat
         assert r.arohana
         assert r.avarohana
         assert r.vadi

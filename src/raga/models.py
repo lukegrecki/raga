@@ -11,7 +11,7 @@ from pydantic import BaseModel, model_validator
 class Raga(BaseModel):
     name: str
     aliases: list[str] = []
-    thaat: str
+    thaat: Optional[str] = None
     arohana: list[str]
     avarohana: list[str]
     vadi: str

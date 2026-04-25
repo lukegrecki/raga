@@ -26,7 +26,7 @@ def _matches(
     mood: Optional[str],
     season: Optional[str],
 ) -> bool:
-    if thaat and raga.thaat.lower() != thaat.lower():
+    if thaat and (raga.thaat is None or raga.thaat.lower() != thaat.lower()):
         return False
     if time and raga.time.lower() != time.lower():
         return False
@@ -88,7 +88,7 @@ def list_ragas(
             headers,
             lambda r: [
                 r.name,
-                r.thaat,
+                r.thaat or "—",
                 r.time.title(),
                 r.vadi,
                 r.samvadi,
@@ -123,7 +123,7 @@ def list_ragas(
             mood_text += f" +{len(raga.mood) - 2}"
         table.add_row(
             raga.name,
-            raga.thaat,
+            raga.thaat or "—",
             time_label(raga.time),
             format_swara(raga.vadi),
             mood_text,
