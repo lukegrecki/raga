@@ -67,7 +67,7 @@
     "theka": ["Dha", "Tirakita", "Dhin", "Dhin", "~Dha", "~Dha", "~Tin", "~Tin", "Dha", "Tirakita", "Dhin", "Dhin", "Dha", "Dha", "Dhin", "Dhin"],
     "feel": ["stately", "contemplative"],
     "tempo": ["vilambit"],
-    "description": "A sixteen-beat tala used primarily in vilambit khyal. Shares the same beat count as Teentaal but has a very different character due to the Tirakita compound bol. The second vibhag (with Tin) marks the khali."
+    "description": "A sixteen-beat tala used primarily in vilambit khyal. Shares the same beat count as Teentaal but has a very different character due to the Tirakita compound bol. The second vibhag is the khali section."
   },
   {
     "name": "Jhoomra",
