@@ -66,7 +66,7 @@ def play_notes(
     gap_indices: list[int] | None = None,
     on_note: Callable[[int | None], None] | None = None,
 ) -> None:
-    import fluidsynth
+    import fluidsynth  # type: ignore[import-untyped]
 
     beat_duration = 60.0 / tempo_bpm
     gap_set = set(gap_indices) if gap_indices else set()

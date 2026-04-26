@@ -15,7 +15,7 @@ def complete_tala_names(incomplete: str) -> list[str]:
 
 def complete_thaats(incomplete: str) -> list[str]:
     ragas = load_ragas()
-    thaats = sorted({r.thaat for r in ragas})
+    thaats = sorted({r.thaat for r in ragas if r.thaat})
     return [t for t in thaats if t.lower().startswith(incomplete.lower())]
 
 

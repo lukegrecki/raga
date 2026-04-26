@@ -15,9 +15,12 @@ class EntityLike(Protocol):
     aliases: list[str]
 
 
-def build_corpus(entities: list[EntityLike]) -> list[tuple[str, EntityLike]]:
+EntityT = TypeVar("EntityT", bound=EntityLike)
+
+
+def build_corpus(entities: list[EntityT]) -> list[tuple[str, EntityT]]:
     """Build a searchable corpus from entities and their aliases."""
-    corpus: list[tuple[str, EntityLike]] = []
+    corpus: list[tuple[str, EntityT]] = []
     for entity in entities:
         corpus.append((entity.name.lower(), entity))
         for alias in entity.aliases:
@@ -26,8 +29,8 @@ def build_corpus(entities: list[EntityLike]) -> list[tuple[str, EntityLike]]:
 
 
 def find_entity(
-    query: str, entities: list[EntityLike]
-) -> tuple[EntityLike | None, list[str]]:
+    query: str, entities: list[EntityT]
+) -> tuple[EntityT | None, list[str]]:
     """Fuzzy search for an entity, returning best match and suggestions.
 
     Returns a tuple of (matched_entity, suggestion_names).
