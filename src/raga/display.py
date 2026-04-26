@@ -1,4 +1,9 @@
+from typing import Callable, TypeVar
+
+from rich import print as rprint
 from rich.text import Text
+
+Entity = TypeVar("Entity")
 
 
 def format_swara(swara: str) -> Text:
@@ -95,3 +100,44 @@ def time_label(time: str) -> Text:
     t = Text(label)
     t.stylize(color)
     return t
+
+
+def render_no_match(name: str, suggestions: list[str], list_cmd: str) -> None:
+    if suggestions:
+        rprint(
+            f"[yellow]No exact match for[/yellow] [bold]{name!r}[/bold]"
+            "[yellow]. Did you mean:[/yellow]"
+        )
+        for s in suggestions:
+            rprint(f"  [cyan]•[/cyan] {s}")
+    else:
+        rprint(f"[red]No match found for[/red] [bold]{name!r}[/bold].")
+        rprint(f"[dim]Try[/dim] [bold]{list_cmd}[/bold] [dim]to browse all.[/dim]")
+
+
+def to_plain_text(
+    entities: list[Entity],
+    headers: list[str],
+    row_builder: Callable[[Entity], list[str]],
+    noun_plural: str,
+    filter_info: str = "",
+) -> str:
+    rows = [row_builder(entity) for entity in entities]
+    widths = [
+        max(len(h), max((len(row[i]) for row in rows), default=0))
+        for i, h in enumerate(headers)
+    ]
+    header_line = "  ".join(h.ljust(widths[i]) for i, h in enumerate(headers)).rstrip()
+    separator = "-" * (sum(widths) + 2 * (len(widths) - 1))
+    data_lines = [
+        "  ".join(cell.ljust(widths[i]) for i, cell in enumerate(row)).rstrip()
+        for row in rows
+    ]
+
+    parts = []
+    if filter_info:
+        parts.append(f"Showing {len(entities)} {noun_plural} · {filter_info}")
+        parts.append("")
+
+    parts += [header_line, separator] + data_lines
+    return "\n".join(parts)

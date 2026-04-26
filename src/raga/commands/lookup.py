@@ -1,12 +1,11 @@
 import typer
-from rich import print as rprint
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
 from rich.text import Text
 
 from raga.completers import complete_raga_names
-from raga.display import format_scale, format_swara, time_label
+from raga.display import format_scale, format_swara, render_no_match, time_label
 from raga.models import Raga, load_ragas
 from raga.search import find_entity
 
@@ -64,13 +63,4 @@ def lookup(
         console.print(_render_raga(raga))
         return
 
-    if suggestions:
-        rprint(
-            f"[yellow]No exact match for[/yellow] [bold]{name!r}[/bold]"
-            "[yellow]. Did you mean:[/yellow]"
-        )
-        for s in suggestions:
-            rprint(f"  [cyan]•[/cyan] {s}")
-    else:
-        rprint(f"[red]No raga found matching[/red] [bold]{name!r}[/bold].")
-        rprint("[dim]Try[/dim] [bold]raga list[/bold] [dim]to browse all ragas.[/dim]")
+    render_no_match(name, suggestions, "raga list")

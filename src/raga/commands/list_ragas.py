@@ -12,9 +12,8 @@ from raga.completers import (
     complete_thaats,
     complete_times,
 )
-from raga.display import format_swara, time_label
+from raga.display import format_swara, time_label, to_plain_text
 from raga.models import Raga, load_ragas
-from raga.search import to_plain_text
 
 console = Console()
 
@@ -94,7 +93,8 @@ def list_ragas(
                 r.samvadi,
                 ", ".join(r.mood) if r.mood else "-",
             ],
-            filter_info,
+            noun_plural="ragas",
+            filter_info=filter_info,
         )
         if output:
             output.write_text(text)

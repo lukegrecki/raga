@@ -7,8 +7,8 @@ from rich.console import Console
 from rich.table import Table
 
 from raga.completers import complete_beats, complete_feels, complete_tempos
+from raga.display import to_plain_text
 from raga.models import Tala, load_talas
-from raga.search import to_plain_text
 
 console = Console()
 
@@ -74,7 +74,8 @@ def list_talas(
                 " / ".join(x.title() for x in t.tempo),
                 ", ".join(t.feel) if t.feel else "-",
             ],
-            filter_info,
+            noun_plural="talas",
+            filter_info=filter_info,
         )
         if output:
             output.write_text(text)

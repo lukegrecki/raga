@@ -24,7 +24,7 @@ class TestTalaLookup:
     def test_lookup_no_match_no_suggestions(self):
         result = runner.invoke(app, ["lookup", "xyzzzz999"])
         assert result.exit_code == 0
-        assert "No tala found" in result.output
+        assert "No match found" in result.output
 
     def test_lookup_fuzzy_match(self):
         result = runner.invoke(app, ["lookup", "teen"])

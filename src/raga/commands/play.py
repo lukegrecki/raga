@@ -4,8 +4,6 @@ import os
 from pathlib import Path
 
 import typer
-from rapidfuzz import fuzz, process
-from rich import print as rprint
 from rich.console import Console
 from rich.live import Live
 from rich.panel import Panel
@@ -13,40 +11,18 @@ from rich.table import Table
 from rich.text import Text
 
 from raga.audio import parse_note_name, play_notes, swaras_to_midi
-from raga.display import format_scale, format_scale_highlighted
-from raga.models import Raga, load_ragas
+from raga.completers import complete_raga_names
+from raga.display import format_scale, format_scale_highlighted, render_no_match
+from raga.models import load_ragas
+from raga.search import find_entity
 
 console = Console()
 
 
-def _find_raga(query: str, ragas: list[Raga]) -> tuple[Raga | None, list[str]]:
-    corpus: list[tuple[str, Raga]] = []
-    for raga in ragas:
-        corpus.append((raga.name.lower(), raga))
-        for alias in raga.aliases:
-            corpus.append((alias.lower(), raga))
-
-    names = [c[0] for c in corpus]
-    results = process.extract(query.lower(), names, scorer=fuzz.WRatio, limit=5)
-
-    if not results:
-        return None, []
-
-    best_score = results[0][1]
-    if best_score >= 75:
-        idx = names.index(results[0][0])
-        return corpus[idx][1], []
-
-    suggestions = []
-    for name, score, _ in results:
-        if score >= 40:
-            idx = names.index(name)
-            suggestions.append(corpus[idx][1].name)
-    return None, list(dict.fromkeys(suggestions))
-
-
 def play(
-    name: str = typer.Argument(..., help="Raga name to play"),
+    name: str = typer.Argument(
+        ..., help="Raga name to play", autocompletion=complete_raga_names
+    ),
     sa: str = typer.Option("C4", help="Sa reference note (e.g. C4, D4)"),
     tempo: int = typer.Option(80, help="Tempo in BPM"),
     soundfont: Path | None = typer.Option(None, help="Path to SF2 soundfont file"),
@@ -71,21 +47,10 @@ def play(
         raise typer.BadParameter(str(e), param_hint="--sa") from e
 
     ragas = load_ragas()
-    raga, suggestions = _find_raga(name, ragas)
+    raga, suggestions = find_entity(name, ragas)
 
     if raga is None:
-        if suggestions:
-            rprint(
-                f"[yellow]No exact match for[/yellow] [bold]{name!r}[/bold]"
-                "[yellow]. Did you mean:[/yellow]"
-            )
-            for s in suggestions:
-                rprint(f"  [cyan]•[/cyan] {s}")
-        else:
-            rprint(f"[red]No raga found matching[/red] [bold]{name!r}[/bold].")
-            rprint(
-                "[dim]Try[/dim] [bold]raga list[/bold] [dim]to browse all ragas.[/dim]"
-            )
+        render_no_match(name, suggestions, "raga list")
         raise typer.Exit(1)
 
     all_swaras = raga.arohana + raga.avarohana

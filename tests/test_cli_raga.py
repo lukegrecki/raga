@@ -29,7 +29,7 @@ class TestRagaLookup:
     def test_lookup_no_match_no_suggestions(self):
         result = runner.invoke(app, ["lookup", "xyzzzz999"])
         assert result.exit_code == 0
-        assert "No raga found" in result.output
+        assert "No match found" in result.output
 
     def test_lookup_partial_match_with_suggestions(self):
         result = runner.invoke(app, ["lookup", "rag"])
@@ -138,4 +138,4 @@ class TestRagaPlay:
             app, ["play", "xyzzzz999", "--soundfont", "fake.sf2"]
         )
         assert result.exit_code == 1
-        assert "No raga found" in result.output
+        assert "No match found" in result.output

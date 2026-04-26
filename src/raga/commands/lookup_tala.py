@@ -1,11 +1,10 @@
 import typer
-from rich import print as rprint
 from rich.console import Console
 from rich.panel import Panel
 from rich.text import Text
 
 from raga.completers import complete_tala_names
-from raga.display import format_theka
+from raga.display import format_theka, render_no_match
 from raga.models import Tala, load_talas
 from raga.search import find_entity
 
@@ -55,13 +54,4 @@ def lookup_tala(
         console.print(_render_tala(tala))
         return
 
-    if suggestions:
-        rprint(
-            f"[yellow]No exact match for[/yellow] [bold]{name!r}[/bold]"
-            "[yellow]. Did you mean:[/yellow]"
-        )
-        for s in suggestions:
-            rprint(f"  [cyan]•[/cyan] {s}")
-    else:
-        rprint(f"[red]No tala found matching[/red] [bold]{name!r}[/bold].")
-        rprint("[dim]Try[/dim] [bold]tala list[/bold] [dim]to browse all talas.[/dim]")
+    render_no_match(name, suggestions, "tala list")
