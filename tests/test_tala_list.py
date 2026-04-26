@@ -1,4 +1,3 @@
-from raga.commands.list_talas import _matches
 from raga.models import Tala
 
 
@@ -21,43 +20,43 @@ def _make_tala(
 
 
 def test_matches_no_filters():
-    assert _matches(_make_tala(), None, None, None)
+    assert _make_tala().matches()
 
 
 def test_matches_beats_match():
-    assert _matches(_make_tala(beats=16), 16, None, None)
+    assert _make_tala(beats=16).matches(beats=16)
 
 
 def test_matches_beats_no_match():
-    assert not _matches(_make_tala(beats=10), 16, None, None)
+    assert not _make_tala(beats=10).matches(beats=16)
 
 
 def test_matches_feel_match():
-    assert _matches(_make_tala(feel=["stately"]), None, "stately", None)
+    assert _make_tala(feel=["stately"]).matches(feel="stately")
 
 
 def test_matches_feel_no_match():
-    assert not _matches(_make_tala(feel=["lively"]), None, "stately", None)
+    assert not _make_tala(feel=["lively"]).matches(feel="stately")
 
 
 def test_matches_feel_case_insensitive():
-    assert _matches(_make_tala(feel=["Stately"]), None, "stately", None)
+    assert _make_tala(feel=["Stately"]).matches(feel="stately")
 
 
 def test_matches_tempo_match():
-    assert _matches(_make_tala(tempo=["madhya"]), None, None, "madhya")
+    assert _make_tala(tempo=["madhya"]).matches(tempo="madhya")
 
 
 def test_matches_tempo_no_match():
-    assert not _matches(_make_tala(tempo=["drut"]), None, None, "vilambit")
+    assert not _make_tala(tempo=["drut"]).matches(tempo="vilambit")
 
 
 def test_list_talas_filter_beats(talas):
-    filtered = [t for t in talas if _matches(t, 16, None, None)]
+    filtered = [t for t in talas if t.matches(beats=16)]
     assert len(filtered) > 0
     assert all(t.beats == 16 for t in filtered)
 
 
 def test_list_talas_filter_feel(talas):
-    filtered = [t for t in talas if _matches(t, None, "stately", None)]
+    filtered = [t for t in talas if t.matches(feel="stately")]
     assert all("stately" in [f.lower() for f in t.feel] for t in filtered)

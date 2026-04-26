@@ -13,28 +13,10 @@ from raga.completers import (
     complete_times,
 )
 from raga.display import format_swara, time_label, to_plain_text
-from raga.models import Raga, load_ragas
+from raga.models import load_ragas
 
 console = Console()
 
-
-def _matches(
-    raga: Raga,
-    thaat: Optional[str],
-    time: Optional[str],
-    mood: Optional[str],
-    season: Optional[str],
-) -> bool:
-    if thaat and (raga.thaat is None or raga.thaat.lower() != thaat.lower()):
-        return False
-    if time and raga.time.lower() != time.lower():
-        return False
-    if mood and mood.lower() not in [m.lower() for m in raga.mood]:
-        return False
-    if season:
-        if raga.season is None or raga.season.lower() != season.lower():
-            return False
-    return True
 
 
 def list_ragas(
@@ -63,7 +45,9 @@ def list_ragas(
 ) -> None:
     """List all ragas, with optional filters."""
     ragas = load_ragas()
-    filtered = [r for r in ragas if _matches(r, thaat, time, mood, season)]
+    filtered = [
+        r for r in ragas if r.matches(thaat=thaat, time=time, mood=mood, season=season)
+    ]
 
     if not filtered:
         rprint("[yellow]No ragas match the given filters.[/yellow]")

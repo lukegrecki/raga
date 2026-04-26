@@ -7,7 +7,7 @@ from rich.console import Console
 
 from raga.commands.lookup_tala import _render_tala
 from raga.completers import complete_beats, complete_feels, complete_tempos
-from raga.models import Tala, load_talas
+from raga.models import load_talas
 
 console = Console()
 
@@ -30,16 +30,7 @@ def suggest_tala(
     """Suggest talas based on beats, feel, or tempo."""
     talas = load_talas()
 
-    def matches(t: Tala) -> bool:
-        if beats is not None and t.beats != beats:
-            return False
-        if feel and feel.lower() not in [f.lower() for f in t.feel]:
-            return False
-        if tempo and tempo.lower() not in [t2.lower() for t2 in t.tempo]:
-            return False
-        return True
-
-    pool = [t for t in talas if matches(t)]
+    pool = [t for t in talas if t.matches(beats=beats, feel=feel, tempo=tempo)]
 
     if not pool:
         rprint("[yellow]No talas found for the given criteria.[/yellow]")

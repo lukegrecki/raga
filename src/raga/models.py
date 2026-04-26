@@ -22,6 +22,26 @@ class Raga(BaseModel):
     pakad: Optional[str] = None
     description: Optional[str] = None
 
+    def matches(
+        self,
+        thaat: Optional[str] = None,
+        time: Optional[str] = None,
+        mood: Optional[str] = None,
+        season: Optional[str] = None,
+        include_any_time: bool = False,
+    ) -> bool:
+        if thaat and (self.thaat is None or self.thaat.lower() != thaat.lower()):
+            return False
+        if time:
+            allowed = (time.lower(), "any") if include_any_time else (time.lower(),)
+            if self.time.lower() not in allowed:
+                return False
+        if mood and mood.lower() not in [m.lower() for m in self.mood]:
+            return False
+        if season and (self.season is None or self.season.lower() != season.lower()):
+            return False
+        return True
+
 
 @lru_cache(maxsize=1)
 def load_ragas() -> list[Raga]:
@@ -40,6 +60,20 @@ class Tala(BaseModel):
     feel: list[str] = []
     tempo: list[str] = []
     description: Optional[str] = None
+
+    def matches(
+        self,
+        beats: Optional[int] = None,
+        feel: Optional[str] = None,
+        tempo: Optional[str] = None,
+    ) -> bool:
+        if beats is not None and self.beats != beats:
+            return False
+        if feel and feel.lower() not in [f.lower() for f in self.feel]:
+            return False
+        if tempo and tempo.lower() not in [t.lower() for t in self.tempo]:
+            return False
+        return True
 
     @model_validator(mode='after')
     def check_beats_invariant(self) -> 'Tala':

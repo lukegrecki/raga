@@ -8,21 +8,10 @@ from rich.table import Table
 
 from raga.completers import complete_beats, complete_feels, complete_tempos
 from raga.display import to_plain_text
-from raga.models import Tala, load_talas
+from raga.models import load_talas
 
 console = Console()
 
-
-def _matches(
-    tala: Tala, beats: Optional[int], feel: Optional[str], tempo: Optional[str]
-) -> bool:
-    if beats is not None and tala.beats != beats:
-        return False
-    if feel and feel.lower() not in [f.lower() for f in tala.feel]:
-        return False
-    if tempo and tempo.lower() not in [t.lower() for t in tala.tempo]:
-        return False
-    return True
 
 
 def list_talas(
@@ -47,7 +36,7 @@ def list_talas(
 ) -> None:
     """List all talas, with optional filters."""
     talas = load_talas()
-    filtered = [t for t in talas if _matches(t, beats, feel, tempo)]
+    filtered = [t for t in talas if t.matches(beats=beats, feel=feel, tempo=tempo)]
 
     if not filtered:
         rprint("[yellow]No talas match the given filters.[/yellow]")

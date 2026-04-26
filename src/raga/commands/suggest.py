@@ -9,7 +9,7 @@ from rich.console import Console
 from raga.commands.lookup import _render_raga
 from raga.completers import complete_moods, complete_times
 from raga.display import TIME_COLORS
-from raga.models import Raga, load_ragas
+from raga.models import load_ragas
 
 console = Console()
 
@@ -53,14 +53,10 @@ def suggest(
     if not detected_time and not mood:
         detected_time = _current_time_of_day()
 
-    def matches(r: Raga) -> bool:
-        if detected_time and r.time.lower() not in (detected_time.lower(), "any"):
-            return False
-        if mood and mood.lower() not in [m.lower() for m in r.mood]:
-            return False
-        return True
-
-    pool = [r for r in ragas if matches(r)]
+    pool = [
+        r for r in ragas
+        if r.matches(time=detected_time, mood=mood, include_any_time=True)
+    ]
 
     if not pool:
         rprint("[yellow]No ragas found for the given criteria.[/yellow]")
