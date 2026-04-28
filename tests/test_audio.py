@@ -207,21 +207,29 @@ def test_play_notes_cleanup_on_error(tmp_path):
 
 def test_play_notes_tempo_zero_raises(tmp_path):
     """tempo_bpm = 0 raises ValueError"""
+    import sys
+
     from raga.audio import play_notes
 
     mock_sf = tmp_path / "test.sf2"
     mock_sf.write_text("fake")
 
-    with pytest.raises(ValueError, match="tempo"):
-        play_notes([60], 0, mock_sf)
+    mock_fluidsynth = MagicMock()
+    with patch.dict(sys.modules, {"fluidsynth": mock_fluidsynth}):
+        with pytest.raises(ValueError, match="tempo"):
+            play_notes([60], 0, mock_sf)
 
 
 def test_play_notes_tempo_negative_raises(tmp_path):
     """tempo_bpm < 0 raises ValueError"""
+    import sys
+
     from raga.audio import play_notes
 
     mock_sf = tmp_path / "test.sf2"
     mock_sf.write_text("fake")
 
-    with pytest.raises(ValueError, match="tempo"):
-        play_notes([60], -80, mock_sf)
+    mock_fluidsynth = MagicMock()
+    with patch.dict(sys.modules, {"fluidsynth": mock_fluidsynth}):
+        with pytest.raises(ValueError, match="tempo"):
+            play_notes([60], -80, mock_sf)
