@@ -55,7 +55,13 @@ def swaras_to_midi(swaras: list[str], sa_midi: int) -> list[int]:
             raise ValueError(
                 f"Unknown swara: {swara!r}. Must be one of {list(SWARA_SEMITONES)}"
             )
-        result.append(sa_midi + SWARA_SEMITONES[swara])
+        midi_value = sa_midi + SWARA_SEMITONES[swara]
+        if not 0 <= midi_value <= 127:
+            raise ValueError(
+                f"Swara {swara!r} with sa_midi={sa_midi} produces MIDI value "
+                f"{midi_value}, outside valid range 0–127."
+            )
+        result.append(midi_value)
     return result
 
 
@@ -68,6 +74,8 @@ def play_notes(
 ) -> None:
     import fluidsynth  # type: ignore[import-untyped]
 
+    if tempo_bpm <= 0:
+        raise ValueError(f"tempo_bpm must be positive, got {tempo_bpm}")
     beat_duration = 60.0 / tempo_bpm
     gap_set = set(gap_indices) if gap_indices else set()
 

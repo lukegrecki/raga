@@ -99,11 +99,10 @@ def test_swaras_empty_list():
     assert swaras_to_midi([], 60) == []
 
 
-def test_swaras_sa_pushes_past_127():
-    """When sa_midi + SA offset exceeds 127, all swaras included are valid
-    (behavior: returns the MIDI value without raising; caller must validate)"""
-    result = swaras_to_midi(["Sa", "Re"], 126)
-    assert result == [126, 128]  # Re is at +2 semitones from Sa
+def test_swaras_sa_pushes_past_127_raises():
+    """When sa_midi + swara exceeds 127, raise ValueError"""
+    with pytest.raises(ValueError, match="outside valid range"):
+        swaras_to_midi(["Sa", "Re"], 126)  # Re would be 128
 
 
 # --- SWARA_SEMITONES coverage ---
@@ -204,3 +203,25 @@ def test_play_notes_cleanup_on_error(tmp_path):
             play_notes([60], 80, mock_sf)
         # delete should have been called even though an error occurred
         mock_synth.delete.assert_called_once()
+
+
+def test_play_notes_tempo_zero_raises(tmp_path):
+    """tempo_bpm = 0 raises ValueError"""
+    from raga.audio import play_notes
+
+    mock_sf = tmp_path / "test.sf2"
+    mock_sf.write_text("fake")
+
+    with pytest.raises(ValueError, match="tempo"):
+        play_notes([60], 0, mock_sf)
+
+
+def test_play_notes_tempo_negative_raises(tmp_path):
+    """tempo_bpm < 0 raises ValueError"""
+    from raga.audio import play_notes
+
+    mock_sf = tmp_path / "test.sf2"
+    mock_sf.write_text("fake")
+
+    with pytest.raises(ValueError, match="tempo"):
+        play_notes([60], -80, mock_sf)
