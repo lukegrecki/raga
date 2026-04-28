@@ -83,7 +83,7 @@ Use `~` prefix in the theka to mark khali (unaccented) beats:
 Run the test suite to ensure your changes don't break anything:
 
 ```bash
-pip install -e ".[dev]"
+.venv/bin/pip install -e ".[dev]"
 .venv/bin/python -m pytest tests/ -v
 ```
 
@@ -106,7 +106,7 @@ Fix issues automatically with:
 To set up a development environment:
 
 ```bash
-pip install -e ".[dev]"
+.venv/bin/pip install -e ".[dev]"
 ```
 
 This installs the package in editable mode with development dependencies (pytest, ruff).

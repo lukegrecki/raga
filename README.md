@@ -2,8 +2,8 @@
 
 [![PyPI version](https://img.shields.io/pypi/v/ragamala)](https://pypi.org/project/ragamala/)
 [![Python versions](https://img.shields.io/pypi/pyversions/ragamala)](https://pypi.org/project/ragamala/)
-[![License](https://img.shields.io/pypi/l/ragamala)](https://github.com/lgrecki/raga/blob/main/LICENSE)
-[![CI](https://github.com/lgrecki/raga/actions/workflows/test.yml/badge.svg)](https://github.com/lgrecki/raga/actions)
+[![License](https://img.shields.io/pypi/l/ragamala)](https://github.com/lukegrecki/raga/blob/main/LICENSE)
+[![CI](https://github.com/lukegrecki/raga/actions/workflows/test.yml/badge.svg)](https://github.com/lukegrecki/raga/actions)
 
 A terminal reference tool for Hindustani classical music — look up ragas and talas, browse by time, mood, or feel, and get suggestions suited to the moment.
 

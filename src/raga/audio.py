@@ -77,7 +77,7 @@ def play_notes(
     except ImportError as e:
         raise ImportError(
             "Audio playback requires the 'audio' extra. "
-            "Install it with: pip install raga[audio]\n"
+            "Install it with: pip install ragamala[audio]\n"
             "You also need FluidSynth installed on your system:\n"
             "  macOS: brew install fluid-synth\n"
             "  Debian/Ubuntu: apt install fluidsynth\n"
