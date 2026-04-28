@@ -7,6 +7,19 @@ from typing import Optional
 
 from pydantic import BaseModel, model_validator
 
+VALID_TIMES = {
+    "dawn",
+    "morning",
+    "afternoon",
+    "evening",
+    "dusk",
+    "night",
+    "late night",
+    "midnight",
+    "any",
+}
+VALID_TEMPOS = {"vilambit", "madhya", "drut"}
+
 
 class Raga(BaseModel):
     name: str
