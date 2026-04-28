@@ -7,16 +7,38 @@ name = "raga"
 version = "0.1.0"
 description = "Hindustani raga reference tool"
 requires-python = ">=3.11"
+authors = [{ name = "Luke Grecki", email = "lukegrecki@gmail.com" }]
+license = { file = "LICENSE" }
+readme = "README.md"
+keywords = ["hindustani", "music", "raga", "tala", "indian-classical", "cli"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Multimedia :: Sound/Audio",
+    "Topic :: Artistic Software",
+]
 dependencies = [
     "typer>=0.12",
     "rich>=13",
     "pydantic>=2",
     "rapidfuzz>=3",
-    "pyfluidsynth>=1.3",
 ]
 
 [project.optional-dependencies]
+audio = ["pyfluidsynth>=1.3"]
 dev = ["pytest>=8", "ruff>=0.4", "pytest-ruff>=0.4"]
+
+[project.urls]
+Homepage = "https://github.com/lukegrecki/raga"
+Repository = "https://github.com/lukegrecki/raga"
+Issues = "https://github.com/lukegrecki/raga/issues"
 
 [project.scripts]
 raga = "raga.cli:app"
