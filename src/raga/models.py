@@ -22,6 +22,23 @@ VALID_TEMPOS = {"vilambit", "madhya", "drut"}
 
 
 class Raga(BaseModel):
+    """A Hindustani classical raga.
+
+    Fields:
+    - name: The raga's name
+    - aliases: Alternative names
+    - thaat: Parent melodic framework (e.g. Kalyan, Bhairav)
+    - arohana: Ascending scale
+    - avarohana: Descending scale
+    - vadi: Primary swara (important pitch)
+    - samvadi: Secondary swara
+    - time: When traditionally played (dawn, morning, afternoon, evening,
+            dusk, night, late night, midnight, or any)
+    - mood: Emotional qualities
+    - season: When traditionally played in the year
+    - pakad: Characteristic melodic phrase or pattern
+    - description: Additional notes
+    """
     name: str
     aliases: list[str] = []
     thaat: Optional[str] = None
@@ -58,6 +75,7 @@ class Raga(BaseModel):
 
 @lru_cache(maxsize=1)
 def load_ragas() -> list[Raga]:
+    """Load all ragas from data/ragas.json. Results are cached."""
     data_path = Path(__file__).parent / "data" / "ragas.json"
     with open(data_path) as f:
         data = json.load(f)
@@ -65,6 +83,20 @@ def load_ragas() -> list[Raga]:
 
 
 class Tala(BaseModel):
+    """A Hindustani classical tala (rhythmic framework).
+
+    Fields:
+    - name: The tala's name
+    - aliases: Alternative names
+    - beats: Total number of beats
+    - vibhags: Groupings of beats (must sum to beats)
+    - theka: Sequence of bols; prefix with ~ to mark khali (unaccented) beats
+    - feel: Descriptive qualities
+    - tempo: Applicable tempos (vilambit, madhya, drut)
+    - description: Additional notes
+
+    Invariant: beats == len(theka) == sum(vibhags)
+    """
     name: str
     aliases: list[str] = []
     beats: int
@@ -103,6 +135,7 @@ class Tala(BaseModel):
 
 @lru_cache(maxsize=1)
 def load_talas() -> list[Tala]:
+    """Load all talas from data/talas.json. Results are cached."""
     data_path = Path(__file__).parent / "data" / "talas.json"
     with open(data_path) as f:
         data = json.load(f)
