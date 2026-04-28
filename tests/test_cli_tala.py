@@ -97,3 +97,37 @@ class TestTalaSuggest:
         result = runner.invoke(app, ["suggest", "--tempo", "faketempo"])
         assert result.exit_code == 1
         assert "No talas found" in result.output
+
+
+class TestTalaLookupErrorCases:
+    def test_lookup_unknown_no_suggestions(self):
+        """tala lookup with unknown name returns friendly message or suggestions"""
+        result = runner.invoke(app, ["lookup", "xyzunknowntala123"])
+        assert result.exit_code == 0
+        # Either no exact match or suggestions are shown
+        assert "No exact match" in result.output or "Did you mean" in result.output
+
+    def test_lookup_missing_argument_error(self):
+        """tala lookup without argument raises error"""
+        result = runner.invoke(app, ["lookup"])
+        assert result.exit_code == 2
+
+
+class TestTalaListErrorCases:
+    def test_list_invalid_beats_filter(self):
+        """tala list with invalid beats filter returns empty friendly message"""
+        result = runner.invoke(app, ["list", "--beats", "999"])
+        assert result.exit_code == 0
+        assert "No talas match" in result.output
+
+    def test_list_invalid_feel_filter(self):
+        """tala list with invalid feel returns empty friendly message"""
+        result = runner.invoke(app, ["list", "--feel", "nonexistentfeel"])
+        assert result.exit_code == 0
+        assert "No talas match" in result.output
+
+    def test_list_invalid_tempo_filter(self):
+        """tala list with invalid tempo returns empty friendly message"""
+        result = runner.invoke(app, ["list", "--tempo", "faketempo"])
+        assert result.exit_code == 0
+        assert "No talas match" in result.output

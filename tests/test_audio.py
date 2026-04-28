@@ -1,5 +1,6 @@
 import json
 from pathlib import Path
+from unittest.mock import MagicMock, patch
 
 import pytest
 
@@ -33,6 +34,36 @@ def test_parse_missing_octave_raises():
         parse_note_name("C")
 
 
+def test_parse_lowercase_letter_raises():
+    """Lowercase note letters fail the regex"""
+    with pytest.raises(ValueError, match="Invalid note name"):
+        parse_note_name("c4")
+
+
+def test_parse_double_accidental_raises():
+    """Double accidentals fail the regex"""
+    with pytest.raises(ValueError, match="Invalid note name"):
+        parse_note_name("C##4")
+
+
+def test_parse_invalid_letter_raises():
+    """Invalid note letter (e.g. H) fails the regex"""
+    with pytest.raises(ValueError, match="Invalid note name"):
+        parse_note_name("H4")
+
+
+def test_parse_out_of_range_low():
+    """Note producing MIDI < 0 raises"""
+    with pytest.raises(ValueError, match="outside valid range 0–127"):
+        parse_note_name("C-2")  # Would be MIDI -12
+
+
+def test_parse_out_of_range_high():
+    """Note producing MIDI > 127 raises"""
+    with pytest.raises(ValueError, match="outside valid range 0–127"):
+        parse_note_name("G#9")  # Would be MIDI 128
+
+
 # --- swaras_to_midi ---
 
 def test_swaras_basic():
@@ -57,6 +88,24 @@ def test_swaras_unknown_raises():
         swaras_to_midi(["Xyz"], 60)
 
 
+def test_swaras_case_sensitive():
+    """Swara names are case-sensitive; "sa" != "Sa" """
+    with pytest.raises(ValueError, match="Unknown swara"):
+        swaras_to_midi(["sa"], 60)
+
+
+def test_swaras_empty_list():
+    """Empty list of swaras returns empty list"""
+    assert swaras_to_midi([], 60) == []
+
+
+def test_swaras_sa_pushes_past_127():
+    """When sa_midi + SA offset exceeds 127, all swaras included are valid
+    (behavior: returns the MIDI value without raising; caller must validate)"""
+    result = swaras_to_midi(["Sa", "Re"], 126)
+    assert result == [126, 128]  # Re is at +2 semitones from Sa
+
+
 # --- SWARA_SEMITONES coverage ---
 
 def test_all_ragas_json_swaras_in_map():
@@ -70,3 +119,88 @@ def test_all_ragas_json_swaras_in_map():
     }
     missing = unique_swaras - SWARA_SEMITONES.keys()
     assert not missing, f"Swaras missing from SWARA_SEMITONES: {missing}"
+
+
+# --- play_notes error handling ---
+
+def test_play_notes_driver_error_wrapped(tmp_path):
+    """Driver RuntimeError is wrapped with install hint"""
+    import sys
+
+    from raga.audio import play_notes
+
+    mock_sf = tmp_path / "test.sf2"
+    mock_sf.write_text("fake")
+
+    mock_synth = MagicMock()
+    mock_synth.start.side_effect = RuntimeError("some driver error")
+
+    mock_fluidsynth = MagicMock()
+    mock_fluidsynth.Synth.return_value = mock_synth
+
+    with patch.dict(sys.modules, {"fluidsynth": mock_fluidsynth}):
+        with pytest.raises(RuntimeError, match="FluidSynth is installed"):
+            play_notes([60], 80, mock_sf)
+
+
+def test_play_notes_soundfont_not_found(tmp_path):
+    """Invalid soundfont path raises with guidance"""
+    import sys
+
+    from raga.audio import play_notes
+
+    mock_sf = tmp_path / "test.sf2"
+    mock_sf.write_text("fake")
+
+    mock_synth = MagicMock()
+    mock_synth.sfload.side_effect = FileNotFoundError("SoundFont not found")
+
+    mock_fluidsynth = MagicMock()
+    mock_fluidsynth.Synth.return_value = mock_synth
+
+    with patch.dict(sys.modules, {"fluidsynth": mock_fluidsynth}):
+        with pytest.raises(RuntimeError, match="Failed to load soundfont"):
+            play_notes([60], 80, mock_sf)
+
+
+def test_play_notes_sfload_returns_minus_one(tmp_path):
+    """sfload returning -1 raises RuntimeError"""
+    import sys
+
+    from raga.audio import play_notes
+
+    mock_sf = tmp_path / "test.sf2"
+    mock_sf.write_text("fake")
+
+    mock_synth = MagicMock()
+    mock_synth.sfload.return_value = -1
+
+    mock_fluidsynth = MagicMock()
+    mock_fluidsynth.Synth.return_value = mock_synth
+
+    with patch.dict(sys.modules, {"fluidsynth": mock_fluidsynth}):
+        with pytest.raises(RuntimeError, match="Failed to load soundfont"):
+            play_notes([60], 80, mock_sf)
+
+
+def test_play_notes_cleanup_on_error(tmp_path):
+    """fs.delete() runs even when an exception is raised (finally block)"""
+    import sys
+
+    from raga.audio import play_notes
+
+    mock_sf = tmp_path / "test.sf2"
+    mock_sf.write_text("fake")
+
+    mock_synth = MagicMock()
+    mock_synth.sfload.return_value = 0
+    mock_synth.noteon.side_effect = RuntimeError("playback error")
+
+    mock_fluidsynth = MagicMock()
+    mock_fluidsynth.Synth.return_value = mock_synth
+
+    with patch.dict(sys.modules, {"fluidsynth": mock_fluidsynth}):
+        with pytest.raises(RuntimeError, match="playback error"):
+            play_notes([60], 80, mock_sf)
+        # delete should have been called even though an error occurred
+        mock_synth.delete.assert_called_once()
