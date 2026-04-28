@@ -72,7 +72,19 @@ def play_notes(
     gap_indices: list[int] | None = None,
     on_note: Callable[[int | None], None] | None = None,
 ) -> None:
-    import fluidsynth  # type: ignore[import-untyped]
+    try:
+        import fluidsynth  # type: ignore[import-untyped]
+    except ImportError as e:
+        raise ImportError(
+            "Audio playback requires the 'audio' extra. "
+            "Install it with: pip install ragamala[audio]\n"
+            "You also need FluidSynth installed on your system:\n"
+            "  macOS: brew install fluid-synth\n"
+            "  Debian/Ubuntu: apt install fluidsynth\n"
+            "Then download a SoundFont (e.g., FluidR3_GM.sf2) and run "
+            "raga play with --soundfont /path/to/soundfont.sf2 "
+            "or set RAGA_SOUNDFONT environment variable."
+        ) from e
 
     if tempo_bpm <= 0:
         raise ValueError(f"tempo_bpm must be positive, got {tempo_bpm}")
