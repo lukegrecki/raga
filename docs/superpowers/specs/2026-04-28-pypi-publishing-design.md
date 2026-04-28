@@ -5,8 +5,13 @@
 
 ## Goal
 
-Publish `raga` to PyPI on every GitHub Release, automatically and securely,
-without managing long-lived credentials.
+Publish the `ragamala` distribution to PyPI on every GitHub Release,
+automatically and securely, without managing long-lived credentials.
+
+The PyPI **distribution name** is `ragamala` (chosen because `raga` is
+already taken). The Python **import name** (`raga`), the source directory
+(`src/raga/`), the GitHub repo (`raga`), and the CLI commands (`raga`,
+`tala`) are unaffected.
 
 ## Trigger
 
@@ -72,11 +77,8 @@ release cadence is low and the manual bump keeps `pyproject.toml` readable.
 
 These steps are **prerequisites**, not part of the workflow:
 
-1. Verify PyPI name availability at `https://pypi.org/project/raga/`.
-   If taken, pick an alternative (e.g. `raga-cli`, `pyraga`) and update
-   `[project] name` in `pyproject.toml`. CLI script names are unaffected.
-2. Configure a **pending Trusted Publisher** on PyPI:
-   - Project name: `raga` (or chosen alternative)
+1. Configure a **pending Trusted Publisher** on PyPI:
+   - Project name: `ragamala`
    - Owner: `lukegrecki`
    - Repository: `raga`
    - Workflow filename: `publish.yml`
@@ -111,4 +113,4 @@ These steps are **prerequisites**, not part of the workflow:
 | Publishing a broken commit | `test` job gates `build` and `publish` |
 | Leaked PyPI credentials | OIDC — no long-lived credentials exist |
 | Re-publishing a yanked version | Bump to next patch version; PyPI is immutable by design |
-| Name collision on first publish | Pre-flight name-availability check |
+| Name collision on first publish | Resolved — chose `ragamala` (`raga` was taken) |

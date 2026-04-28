@@ -1,8 +1,8 @@
 # raga
 
-[![PyPI version](https://img.shields.io/pypi/v/raga)](https://pypi.org/project/raga/)
-[![Python versions](https://img.shields.io/pypi/pyversions/raga)](https://pypi.org/project/raga/)
-[![License](https://img.shields.io/pypi/l/raga)](https://github.com/lgrecki/raga/blob/main/LICENSE)
+[![PyPI version](https://img.shields.io/pypi/v/ragamala)](https://pypi.org/project/ragamala/)
+[![Python versions](https://img.shields.io/pypi/pyversions/ragamala)](https://pypi.org/project/ragamala/)
+[![License](https://img.shields.io/pypi/l/ragamala)](https://github.com/lgrecki/raga/blob/main/LICENSE)
 [![CI](https://github.com/lgrecki/raga/actions/workflows/test.yml/badge.svg)](https://github.com/lgrecki/raga/actions)
 
 A terminal reference tool for Hindustani classical music — look up ragas and talas, browse by time, mood, or feel, and get suggestions suited to the moment.
@@ -51,7 +51,7 @@ $ raga lookup yaman
 ## Installation
 
 ```bash
-pip install raga
+pip install ragamala
 ```
 
 Requires Python 3.11 or later.
@@ -87,7 +87,7 @@ apt install fluidsynth
 ### Install the audio extra
 
 ```bash
-pip install raga[audio]
+pip install ragamala[audio]
 ```
 
 ### Get a SoundFont

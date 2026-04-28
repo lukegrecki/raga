@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "raga"
+name = "ragamala"
 version = "0.1.0"
 description = "Hindustani raga reference tool"
 requires-python = ">=3.11"
