@@ -130,21 +130,6 @@ Releases are published to PyPI automatically by `.github/workflows/publish.yml`
 on every GitHub Release. The PyPI distribution name is `ragamala`; the import
 name remains `raga`.
 
-### One-time pre-flight (maintainer)
-
-These steps must be completed once before the first release. They are not part
-of the workflow.
-
-1. On PyPI, configure a **pending Trusted Publisher** for the project:
-   - Project name: `ragamala`
-   - Owner: `lukegrecki`
-   - Repository: `raga`
-   - Workflow filename: `publish.yml`
-   - Environment: `pypi`
-2. In GitHub repo settings, create an **environment** named `pypi`. No secrets
-   are required. Optionally add deployment protection rules (branch/tag
-   restrictions or required reviewers).
-
 ### Per-release procedure
 
 1. Move the entries under `## [Unreleased]` in `CHANGELOG.md` to a new
